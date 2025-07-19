@@ -29,4 +29,5 @@ const TemplateRenderer = forwardRef<HTMLDivElement, TemplateRendererProps>(
   }
 );
 
+TemplateRenderer.displayName = "TemplateRenderer";
 export default TemplateRenderer;

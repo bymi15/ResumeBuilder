@@ -233,4 +233,5 @@ const StandardTemplate = forwardRef<HTMLDivElement, TemplateProps>(({ className,
   );
 });
 
+StandardTemplate.displayName = "StandardTemplate";
 export default StandardTemplate;

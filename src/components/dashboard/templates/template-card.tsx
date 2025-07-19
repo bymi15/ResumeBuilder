@@ -1,14 +1,14 @@
 "use client";
 
 import { Card, CardContent } from "@/components/ui/card";
-import { templates } from "@/lib/consts";
 import Link from "next/link";
+import { resumeTemplates } from "./template-registry";
 
 interface TemplateCardProps {
-  template: (typeof templates)[0];
+  template: (typeof resumeTemplates)[0];
 }
 
-export function TemplateCard({ template: { id, name, thumbnail } }: TemplateCardProps) {
+export function TemplateCard({ template: { id, name } }: TemplateCardProps) {
   return (
     <Link href={`/dashboard/templates/${id}`}>
       <Card className="hover:shadow-lg transition-shadow cursor-pointer">

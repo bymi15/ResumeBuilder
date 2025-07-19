@@ -176,7 +176,7 @@ export default function ResumeWizard() {
         ),
       },
     ],
-    [data.template, resumeTitle, setResumeTitle, register, watch, setValue, control, errors]
+    [resumeTitle, setResumeTitle, register, watch, setValue, control, errors]
   );
 
   useEffect(() => {

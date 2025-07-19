@@ -1,12 +1,19 @@
 "use client";
 
 import { Card, CardContent } from "@/components/ui/card";
-import { Controller } from "react-hook-form";
+import { ResumeSchema } from "@/lib/supabase/resumes/schema";
+import { Control, Controller, UseFormSetValue } from "react-hook-form";
 import { getTemplateTheme } from "../templates/template-registry";
 import TemplateLayoutSelector from "./template-layout-selector";
 import TemplateThemeSelector from "./template-theme-selector";
 
-export default function FormStepTemplate({ control, setValue }: { control: any; setValue: any }) {
+export default function FormStepTemplate({
+  control,
+  setValue,
+}: {
+  setValue: UseFormSetValue<ResumeSchema>;
+  control: Control<ResumeSchema>;
+}) {
   return (
     <Card>
       <CardContent className="space-y-4">

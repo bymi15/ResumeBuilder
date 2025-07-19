@@ -8,6 +8,8 @@ import Link from "next/link";
 import { redirect, useRouter } from "next/navigation";
 import { useState, useTransition } from "react";
 
+export const runtime = "edge";
+
 export default function LoginPage() {
   const router = useRouter();
   const [email, setEmail] = useState("");

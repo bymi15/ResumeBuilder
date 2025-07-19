@@ -216,4 +216,5 @@ const ModernTemplate = forwardRef<HTMLDivElement, TemplateProps>(({ data, classN
   );
 });
 
+ModernTemplate.displayName = "ModernTemplate";
 export default ModernTemplate;

@@ -211,4 +211,5 @@ const CompactTemplate = forwardRef<HTMLDivElement, TemplateProps>(({ className, 
   );
 });
 
+CompactTemplate.displayName = "CompactTemplate";
 export default CompactTemplate;

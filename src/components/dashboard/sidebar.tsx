@@ -74,10 +74,10 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         <SidebarMenu>
           <SidebarMenuItem>
             <SidebarMenuButton asChild className="data-[slot=sidebar-menu-button]:!p-1.5">
-              <a href="/">
+              <Link href="/">
                 <IconInnerShadowTop className="!size-5" />
                 <span className="text-base font-semibold">ResumeBuilder</span>
-              </a>
+              </Link>
             </SidebarMenuButton>
           </SidebarMenuItem>
         </SidebarMenu>
@@ -164,10 +164,10 @@ function NavSecondary({
           {items.map((item) => (
             <SidebarMenuItem key={item.title}>
               <SidebarMenuButton asChild>
-                <a href={item.url}>
+                <Link href={item.url}>
                   <item.icon />
                   <span>{item.title}</span>
-                </a>
+                </Link>
               </SidebarMenuButton>
             </SidebarMenuItem>
           ))}

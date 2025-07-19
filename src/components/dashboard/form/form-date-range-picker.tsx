@@ -1,8 +1,9 @@
 import { MonthYearPicker } from "@/components/shared/month-year-picker";
 import { Label } from "@/components/ui/label";
+import { ResumeSchema } from "@/lib/supabase/resumes/schema";
 import { Checkbox } from "@radix-ui/react-checkbox";
 import { useState } from "react";
-import { Controller } from "react-hook-form";
+import { Control, Controller, FieldPath, UseFormSetValue } from "react-hook-form";
 
 export default function FormDateRangePicker({
   name,
@@ -11,9 +12,9 @@ export default function FormDateRangePicker({
   type,
   placeholder,
 }: {
-  name: string;
-  control: any;
-  setValue: any;
+  name: FieldPath<ResumeSchema>;
+  control: Control<ResumeSchema>;
+  setValue: UseFormSetValue<ResumeSchema>;
   type: "from" | "to";
   placeholder?: string;
 }) {
@@ -25,8 +26,8 @@ export default function FormDateRangePicker({
       render={({ field }) => {
         const parsed = field.value
           ? {
-              year: +field.value.split("-")[0],
-              month: +field.value.split("-")[1] - 1,
+              year: +(field.value as string).split("-")[0],
+              month: +(field.value as string).split("-")[1] - 1,
             }
           : undefined;
 

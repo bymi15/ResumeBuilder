@@ -248,4 +248,5 @@ const SidebarTemplate = forwardRef<HTMLDivElement, TemplateProps>(({ className, 
   );
 });
 
+SidebarTemplate.displayName = "SidebarTemplate";
 export default SidebarTemplate;

@@ -39,7 +39,7 @@ export default function MyResumes() {
         </div>
       ) : (
         <div>
-          <p className="text-lg mb-4">You haven't created any resumes yet.</p>
+          <p className="text-lg mb-4">{"You haven't created any resumes yet."}</p>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 text-muted-foreground">
             <EmptyCard />
           </div>

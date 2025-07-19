@@ -7,6 +7,8 @@ import { IconBrandGithub } from "@tabler/icons-react";
 import { redirect, useRouter } from "next/navigation";
 import { useState, useTransition } from "react";
 
+export const runtime = "edge";
+
 export default function SignupPage() {
   const router = useRouter();
   const [fullName, setFullName] = useState("");
