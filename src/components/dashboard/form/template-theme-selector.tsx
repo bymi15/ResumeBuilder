@@ -9,12 +9,12 @@ export default function TemplateThemeSelector({
   selected,
 }: {
   onSelect: (templateTheme: TemplateTheme) => void;
-  selected?: TemplateTheme;
+  selected?: string;
 }) {
   return (
     <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
       {templateThemes.map((templateTheme) => {
-        const isSelected = selected?.id === templateTheme.id;
+        const isSelected = selected === templateTheme.id;
 
         return (
           <button

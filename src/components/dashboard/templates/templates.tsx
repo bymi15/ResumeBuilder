@@ -1,11 +1,12 @@
 "use client";
 
+import { DashboardContainer } from "../dashboard-container";
 import { TemplateCard } from "./template-card";
 import { resumeTemplates } from "./template-registry";
 
 export default function Templates() {
   return (
-    <main className="container p-6">
+    <DashboardContainer>
       <div className="py-4 border-b mb-4">
         <h1 className="text-2xl font-semibold">Resume Templates</h1>
       </div>
@@ -14,6 +15,6 @@ export default function Templates() {
           <TemplateCard key={template.id} template={template} />
         ))}
       </div>
-    </main>
+    </DashboardContainer>
   );
 }

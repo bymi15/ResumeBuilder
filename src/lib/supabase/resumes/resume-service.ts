@@ -1,8 +1,8 @@
 "use client";
 
+import { resumeSchema } from "@/lib/schemas/resume-schema";
 import { createSupabaseBrowserClient } from "../browser-client";
 import { getAuthUser } from "../utils";
-import { resumeSchema } from "./schema";
 import type { CreateResumePayload, ResumeRecord, UpdateResumePayload } from "./types";
 
 const supabase = createSupabaseBrowserClient();

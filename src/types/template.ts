@@ -1,4 +1,4 @@
-import { ResumeSchema } from "@/lib/supabase/resumes/schema";
+import { ResumeSchema } from "@/lib/schemas/resume-schema";
 
 export interface TemplateProps {
   className?: string;

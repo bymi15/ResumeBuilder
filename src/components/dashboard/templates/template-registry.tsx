@@ -58,7 +58,7 @@ export interface TemplateTheme {
 
 export const templateThemes: TemplateTheme[] = [
   {
-    id: "elegant-black",
+    id: "1",
     name: "Elegant Black",
     theme: {
       primaryColor: "#000000",
@@ -68,7 +68,7 @@ export const templateThemes: TemplateTheme[] = [
     },
   },
   {
-    id: "classic-blue",
+    id: "2",
     name: "Classic Blue",
     theme: {
       primaryColor: "#121f7d",
@@ -78,7 +78,7 @@ export const templateThemes: TemplateTheme[] = [
     },
   },
   {
-    id: "modern-sky",
+    id: "3",
     name: "Modern Sky",
     theme: {
       primaryColor: "#2563eb", // Tailwind blue-600
@@ -89,7 +89,7 @@ export const templateThemes: TemplateTheme[] = [
     },
   },
   {
-    id: "forest-green",
+    id: "4",
     name: "Forest Green",
     theme: {
       primaryColor: "#065f46", // emerald-900
@@ -99,7 +99,7 @@ export const templateThemes: TemplateTheme[] = [
     },
   },
   {
-    id: "sunset",
+    id: "5",
     name: "Sunset",
     theme: {
       primaryColor: "#c2410c", // orange-700
@@ -110,7 +110,7 @@ export const templateThemes: TemplateTheme[] = [
     },
   },
   {
-    id: "charcoal",
+    id: "6",
     name: "Charcoal",
     theme: {
       primaryColor: "#1f2937", // gray-800
@@ -120,7 +120,7 @@ export const templateThemes: TemplateTheme[] = [
     },
   },
   {
-    id: "lavender",
+    id: "7",
     name: "Lavender",
     theme: {
       primaryColor: "#7c3aed", // violet-600
@@ -131,7 +131,7 @@ export const templateThemes: TemplateTheme[] = [
     },
   },
   {
-    id: "ocean",
+    id: "8",
     name: "Ocean",
     theme: {
       primaryColor: "#0e7490", // cyan-700
@@ -139,6 +139,17 @@ export const templateThemes: TemplateTheme[] = [
       sidebarTextColor: "#e0f2f1", // slightly dimmed (cyan-50 to cyan-100)
       sidebarBackgroundColor: "#164e63", // cyan-900
       mainTextColor: "#334155", // slate-700
+    },
+  },
+  {
+    id: "9",
+    name: "Rose Gold",
+    theme: {
+      primaryColor: "#b76e79", // muted rose
+      secondaryColor: "#f4c2c2", // light pinkish highlight
+      sidebarTextColor: "#ffffff",
+      sidebarBackgroundColor: "#5a2a2a", // deep rose-brown
+      mainTextColor: "#3f3f46", // zinc-700
     },
   },
 ];

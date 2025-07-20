@@ -1,4 +1,4 @@
-import { ResumeSchema } from "@/lib/supabase/resumes/schema";
+import { ResumeSchema } from "@/lib/schemas/resume-schema";
 import { create } from "zustand";
 import { createJSONStorage, persist } from "zustand/middleware";
 

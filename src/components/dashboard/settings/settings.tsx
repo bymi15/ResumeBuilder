@@ -1,31 +1,29 @@
 "use client";
 
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { AccountSettings } from "./account-settings";
+import { useAuthUserQuery } from "@/hooks/api/auth/use-auth-user-query";
+import { DashboardContainer } from "../dashboard-container";
+import { AccountSection } from "./account-section";
 import { DangerZone } from "./danger-zone";
-import { ProfileSettings } from "./profile-settings";
+import { ProfileSection } from "./profile-section";
 
 export default function Settings() {
-  return (
-    <div className="max-w-3xl mx-auto p-6 space-y-6">
-      <h1 className="text-3xl font-bold">Settings</h1>
-      <Tabs defaultValue="profile" className="w-full">
-        <TabsList>
-          <TabsTrigger value="profile">Profile</TabsTrigger>
-          <TabsTrigger value="account">Account</TabsTrigger>
-          <TabsTrigger value="danger">Danger Zone</TabsTrigger>
-        </TabsList>
+  const { data: authUser, isPending, isError } = useAuthUserQuery();
 
-        <TabsContent value="profile">
-          <ProfileSettings />
-        </TabsContent>
-        <TabsContent value="account">
-          <AccountSettings />
-        </TabsContent>
-        <TabsContent value="danger">
+  return (
+    <DashboardContainer className="p-10 space-y-12 py-10">
+      {isPending ? (
+        <div className="text-muted-foreground">Loading...</div>
+      ) : isError ? (
+        <div className="text-red-500">Failed to load user data</div>
+      ) : !authUser ? (
+        <div className="text-muted-foreground">No user data available</div>
+      ) : (
+        <>
+          <ProfileSection authUser={authUser} />
+          <AccountSection authUser={authUser} />
           <DangerZone />
-        </TabsContent>
-      </Tabs>
-    </div>
+        </>
+      )}
+    </DashboardContainer>
   );
 }

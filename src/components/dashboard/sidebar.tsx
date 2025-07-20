@@ -30,15 +30,13 @@ import {
   IconCreditCard,
   IconDotsVertical,
   IconFolder,
-  IconHelp,
   IconInnerShadowTop,
   IconLogout,
-  IconNotification,
-  IconSettings,
   IconTemplate,
   IconUserCircle,
   type Icon,
 } from "@tabler/icons-react";
+import { useQueryClient } from "@tanstack/react-query";
 import Link from "next/link";
 import { redirect, usePathname } from "next/navigation";
 import { useTransition } from "react";
@@ -53,16 +51,16 @@ const data = {
     { title: "Templates", url: "/dashboard/templates", icon: IconTemplate },
   ],
   navSecondary: [
-    {
-      title: "Settings",
-      url: "#",
-      icon: IconSettings,
-    },
-    {
-      title: "Get Help",
-      url: "#",
-      icon: IconHelp,
-    },
+    // {
+    //   title: "Settings",
+    //   url: "/dashboard/settings",
+    //   icon: IconSettings,
+    // },
+    // {
+    //   title: "Get Help",
+    //   url: "#",
+    //   icon: IconHelp,
+    // },
   ],
 };
 
@@ -178,12 +176,14 @@ function NavSecondary({
 }
 
 export function NavUser({ user }: { user: User }) {
+  const queryClient = useQueryClient();
   const [isPending, startTransition] = useTransition();
   const { isMobile } = useSidebar();
 
   const handleLogout = () => {
     startTransition(async () => {
       await signOut();
+      await queryClient.invalidateQueries({ queryKey: ["authUser"] });
       redirect("/");
     });
   };
@@ -231,18 +231,22 @@ export function NavUser({ user }: { user: User }) {
             </DropdownMenuLabel>
             <DropdownMenuSeparator />
             <DropdownMenuGroup>
-              <DropdownMenuItem>
-                <IconUserCircle />
-                Account
+              <DropdownMenuItem asChild>
+                <Link href="/dashboard/settings">
+                  <IconUserCircle />
+                  Account Settings
+                </Link>
               </DropdownMenuItem>
-              <DropdownMenuItem>
-                <IconCreditCard />
-                Billing
+              <DropdownMenuItem asChild>
+                <Link href="/dashboard/billing">
+                  <IconCreditCard />
+                  Billing
+                </Link>
               </DropdownMenuItem>
-              <DropdownMenuItem>
+              {/* <DropdownMenuItem>
                 <IconNotification />
                 Notifications
-              </DropdownMenuItem>
+              </DropdownMenuItem> */}
             </DropdownMenuGroup>
             <DropdownMenuSeparator />
             <DropdownMenuItem onClick={handleLogout} disabled={isPending}>

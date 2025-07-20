@@ -4,8 +4,7 @@ import { Button } from "@/components/ui/button";
 import { useCreateResumeMutation } from "@/hooks/api/resumes/use-create-resume-mutation";
 import { useResumeByIdQuery } from "@/hooks/api/resumes/use-resume-by-id-query";
 import { useUpdateResumeMutation } from "@/hooks/api/resumes/use-update-resume-mutation";
-import { ResumeSchema, resumeSchema } from "@/lib/supabase/resumes/schema";
-import { useResumeStore } from "@/store/resume-store";
+import { ResumeSchema, resumeSchema } from "@/lib/schemas/resume-schema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import {
   AlertCircle,
@@ -21,8 +20,8 @@ import {
   User,
 } from "lucide-react";
 import { useParams, useRouter } from "next/navigation";
-import { useCallback, useEffect, useMemo, useState } from "react";
-import { useForm } from "react-hook-form";
+import { useCallback, useEffect, useState } from "react";
+import { FormProvider, useForm } from "react-hook-form";
 import { toast } from "sonner";
 import { FormStepAchievements } from "./form-step-achievements";
 import { FormStepActivities } from "./form-step-activities";
@@ -36,7 +35,7 @@ import FormStepTemplate from "./form-step-template";
 import { FormStepWorkExperience } from "./form-step-work-experience";
 
 const sectionFields: Record<string, (keyof ResumeSchema)[]> = {
-  Template: ["template"],
+  Template: ["template", "templateTheme"],
   "Personal Info": ["fullName", "email", "location", "currentRole", "profilePhoto"],
   Education: ["education"],
   "Work Experience": ["workExperience"],
@@ -56,23 +55,23 @@ export default function ResumeWizard() {
   const [currentStep, setCurrentStep] = useState(0);
   const [resumeTitle, setResumeTitle] = useState("");
 
-  const { data, update } = useResumeStore();
   const { data: resumeData, isPending: isLoadingResume } = useResumeByIdQuery(id);
   const { mutateAsync: createResume } = useCreateResumeMutation();
   const { mutateAsync: updateResume } = useUpdateResumeMutation();
+  const methods = useForm<ResumeSchema>({
+    resolver: zodResolver(resumeSchema),
+    defaultValues: {
+      template: "1",
+      templateTheme: "1",
+    },
+    mode: "onChange",
+  });
   const {
-    register,
-    control,
-    setValue,
-    watch,
     handleSubmit,
     reset,
+    trigger,
     formState: { errors, isValid },
-  } = useForm<ResumeSchema>({
-    resolver: zodResolver(resumeSchema),
-    defaultValues: useMemo(() => data, []),
-    mode: "onBlur",
-  });
+  } = methods;
 
   const hasErrors = useCallback(
     (label: string) => {
@@ -81,103 +80,58 @@ export default function ResumeWizard() {
     [errors]
   );
 
-  const steps = useMemo(
-    () => [
-      {
-        label: "Template",
-        icon: LayoutPanelTop,
-        component: <FormStepTemplate control={control} setValue={setValue} />,
-      },
-      {
-        label: "Personal Info",
-        icon: User,
-        component: (
-          <FormStepPersonalInfo
-            register={register}
-            watch={watch}
-            setValue={setValue}
-            errors={errors}
-          />
-        ),
-      },
-      {
-        label: "Education",
-        icon: GraduationCap,
-        component: <FormStepEducation register={register} control={control} errors={errors} />,
-      },
-      {
-        label: "Work Experience",
-        icon: Briefcase,
-        component: (
-          <FormStepWorkExperience
-            register={register}
-            watch={watch}
-            setValue={setValue}
-            control={control}
-          />
-        ),
-      },
-      {
-        label: "Projects",
-        icon: FolderKanban,
-        component: (
-          <FormStepProjects
-            register={register}
-            watch={watch}
-            setValue={setValue}
-            control={control}
-          />
-        ),
-      },
-      {
-        label: "Achievements",
-        icon: Trophy,
-        component: (
-          <FormStepAchievements
-            register={register}
-            watch={watch}
-            setValue={setValue}
-            control={control}
-          />
-        ),
-      },
-      {
-        label: "Activities",
-        icon: BookOpen,
-        component: (
-          <FormStepActivities
-            register={register}
-            watch={watch}
-            setValue={setValue}
-            control={control}
-          />
-        ),
-      },
-      {
-        label: "Skills",
-        icon: Settings,
-        component: <FormStepSkills register={register} control={control} />,
-      },
-      {
-        label: "Links",
-        icon: Link,
-        component: <FormStepLinks register={register} control={control} />,
-      },
-      {
-        label: "Review",
-        icon: CheckCircle,
-        component: (
-          <FormStepReview
-            watch={watch}
-            errors={errors}
-            resumeTitle={resumeTitle}
-            setResumeTitle={setResumeTitle}
-          />
-        ),
-      },
-    ],
-    [resumeTitle, setResumeTitle, register, watch, setValue, control, errors]
-  );
+  const steps = [
+    {
+      label: "Template",
+      icon: LayoutPanelTop,
+      component: <FormStepTemplate />,
+    },
+    {
+      label: "Personal Info",
+      icon: User,
+      component: <FormStepPersonalInfo />,
+    },
+    {
+      label: "Education",
+      icon: GraduationCap,
+      component: <FormStepEducation />,
+    },
+    {
+      label: "Work Experience",
+      icon: Briefcase,
+      component: <FormStepWorkExperience />,
+    },
+    {
+      label: "Projects",
+      icon: FolderKanban,
+      component: <FormStepProjects />,
+    },
+    {
+      label: "Achievements",
+      icon: Trophy,
+      component: <FormStepAchievements />,
+    },
+    {
+      label: "Activities",
+      icon: BookOpen,
+      component: <FormStepActivities />,
+    },
+    {
+      label: "Skills",
+      icon: Settings,
+      component: <FormStepSkills />,
+    },
+    {
+      label: "Links",
+      icon: Link,
+      component: <FormStepLinks />,
+    },
+    {
+      label: "Review",
+      icon: CheckCircle,
+      component: <FormStepReview resumeTitle={resumeTitle} setResumeTitle={setResumeTitle} />,
+    },
+  ];
 
   useEffect(() => {
     if (isEditMode && resumeData) {
@@ -188,7 +142,6 @@ export default function ResumeWizard() {
 
   const onSubmit = async (formData: ResumeSchema) => {
     if (!isValid || !resumeTitle.trim()) return;
-    update(formData);
 
     try {
       if (isEditMode) {
@@ -218,9 +171,17 @@ export default function ResumeWizard() {
     }
   };
 
-  const nextStep = () => setCurrentStep((prev) => Math.min(prev + 1, steps.length - 1));
-  const prevStep = () => setCurrentStep((prev) => Math.max(prev - 1, 0));
-  const goToStep = (index: number) => setCurrentStep(index);
+  const nextStep = () => goToStep(Math.min(currentStep + 1, steps.length - 1));
+  const prevStep = () => goToStep(Math.max(currentStep - 1, 0));
+  const goToStep = async (index: number) => {
+    if (index === steps.length - 1) {
+      trigger();
+    } else {
+      const fieldsToValidate = sectionFields[steps[currentStep].label];
+      trigger(fieldsToValidate);
+    }
+    setCurrentStep(index);
+  };
 
   if (isEditMode && isLoadingResume) {
     return (
@@ -276,23 +237,25 @@ export default function ResumeWizard() {
 
       {/* Form Section */}
       <section className="flex-1 p-8 overflow-y-auto">
-        <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
-          {steps[currentStep].component}
-          <div className="mt-6 flex justify-between">
-            <Button type="button" disabled={currentStep <= 0} onClick={prevStep}>
-              Back
-            </Button>
-            {currentStep < steps.length - 1 ? (
-              <Button type="button" onClick={nextStep}>
-                Next
+        <FormProvider {...methods}>
+          <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
+            {steps[currentStep].component}
+            <div className="mt-6 flex justify-between">
+              <Button type="button" disabled={currentStep <= 0} onClick={prevStep}>
+                Back
               </Button>
-            ) : (
-              <Button type="submit" disabled={!isValid || !resumeTitle.trim()}>
-                {isEditMode ? "Save" : "Create"} Resume
-              </Button>
-            )}
-          </div>
-        </form>
+              {currentStep < steps.length - 1 ? (
+                <Button type="button" onClick={nextStep}>
+                  Next
+                </Button>
+              ) : (
+                <Button type="submit" disabled={!isValid || !resumeTitle.trim()}>
+                  {isEditMode ? "Save" : "Create"} Resume
+                </Button>
+              )}
+            </div>
+          </form>
+        </FormProvider>
       </section>
     </main>
   );

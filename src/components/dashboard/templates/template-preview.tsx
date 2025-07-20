@@ -2,7 +2,7 @@
 
 import NotFound from "@/components/shared/not-found";
 import { Button } from "@/components/ui/button";
-import { ResumeSchema } from "@/lib/supabase/resumes/schema";
+import { ResumeSchema } from "@/lib/schemas/resume-schema";
 import { ArrowLeftIcon, FilePlus } from "lucide-react";
 import Link from "next/link";
 import { useParams } from "next/navigation";

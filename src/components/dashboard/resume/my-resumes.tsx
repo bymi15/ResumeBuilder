@@ -2,6 +2,7 @@
 
 import { Skeleton } from "@/components/ui/skeleton";
 import { useResumesQuery } from "@/hooks/api/resumes/use-resumes-query";
+import { DashboardContainer } from "../dashboard-container";
 import { EmptyCard } from "./empty-card";
 import { ResumeCard } from "./resume-card";
 
@@ -18,7 +19,7 @@ export default function MyResumes() {
     ));
 
   return (
-    <main className="container p-6">
+    <DashboardContainer>
       <div className="py-4 border-b mb-4">
         <h1 className="text-2xl font-semibold">My Resumes</h1>
       </div>
@@ -45,6 +46,6 @@ export default function MyResumes() {
           </div>
         </div>
       )}
-    </main>
+    </DashboardContainer>
   );
 }

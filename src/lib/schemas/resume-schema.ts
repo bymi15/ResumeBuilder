@@ -22,7 +22,7 @@ export const resumeSchema = z.object({
   links: z
     .array(
       z.object({
-        label: z.string().min(1),
+        label: z.string().min(1, "Label is required"),
         url: z.string().url("Must be a valid URL"),
       })
     )
@@ -39,9 +39,9 @@ export const resumeSchema = z.object({
   activities: z
     .array(
       z.object({
-        title: z.string(),
+        title: z.string().min(1, "Title is required"),
         locationOrCompany: z.string().optional(),
-        dateRange: dateRangeSchema.optional(),
+        dateRange: dateRangeSchema,
       })
     )
     .optional(),
@@ -49,7 +49,7 @@ export const resumeSchema = z.object({
   achievements: z
     .array(
       z.object({
-        title: z.string(),
+        title: z.string().min(1, "Title is required"),
         institute: z.string().optional(),
         description: z.string().optional(),
         date: z.string().min(4, "Date is required"),
@@ -60,10 +60,10 @@ export const resumeSchema = z.object({
   workExperience: z
     .array(
       z.object({
-        company: z.string(),
+        company: z.string().min(1, "Company is required"),
         location: z.string().optional(),
         dateRange: dateRangeSchema,
-        title: z.string(),
+        title: z.string().min(1, "Title/Position is required"),
         description: z.array(z.string().min(1, "Description is required")),
       })
     )
@@ -72,9 +72,9 @@ export const resumeSchema = z.object({
   education: z
     .array(
       z.object({
-        institute: z.string(),
+        institute: z.string().min(1, "Institute is required"),
         dateRange: dateRangeSchema,
-        course: z.string(),
+        course: z.string().min(1, "Course/Degree is required"),
         description: z.string().optional(),
       })
     )
@@ -83,9 +83,9 @@ export const resumeSchema = z.object({
   projects: z
     .array(
       z.object({
-        type: z.string(),
+        type: z.string().min(1, "Project type is required"),
         dateRange: dateRangeSchema,
-        title: z.string(),
+        title: z.string().min(1, "Project title is required"),
         description: z.array(z.string().min(1, "Description is required")),
       })
     )

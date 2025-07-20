@@ -1,21 +1,16 @@
 import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
-import { ResumeSchema } from "@/lib/supabase/resumes/schema";
-import { memo } from "react";
-import { FieldErrors, UseFormRegister, UseFormSetValue, UseFormWatch } from "react-hook-form";
+import { ResumeSchema } from "@/lib/schemas/resume-schema";
+import { useFormContext } from "react-hook-form";
 import ErrorLabel from "./error-label";
 
-export const FormStepPersonalInfo = memo(function FormStepPersonalInfo({
-  register,
-  watch,
-  setValue,
-  errors,
-}: {
-  register: UseFormRegister<ResumeSchema>;
-  watch: UseFormWatch<ResumeSchema>;
-  setValue: UseFormSetValue<ResumeSchema>;
-  errors: FieldErrors<ResumeSchema>;
-}) {
+export function FormStepPersonalInfo() {
+  const {
+    register,
+    watch,
+    setValue,
+    formState: { errors },
+  } = useFormContext<ResumeSchema>();
   const imagePreview = watch("profilePhoto");
 
   const handleProfilePhotoChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -63,4 +58,4 @@ export const FormStepPersonalInfo = memo(function FormStepPersonalInfo({
       </CardContent>
     </Card>
   );
-});
+}

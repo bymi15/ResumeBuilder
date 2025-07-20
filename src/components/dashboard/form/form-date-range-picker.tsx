@@ -1,7 +1,7 @@
 import { MonthYearPicker } from "@/components/shared/month-year-picker";
 import { Label } from "@/components/ui/label";
-import { ResumeSchema } from "@/lib/supabase/resumes/schema";
-import { Checkbox } from "@radix-ui/react-checkbox";
+import { Switch } from "@/components/ui/switch";
+import { ResumeSchema } from "@/lib/schemas/resume-schema";
 import { useState } from "react";
 import { Control, Controller, FieldPath, UseFormSetValue } from "react-hook-form";
 
@@ -33,21 +33,19 @@ export default function FormDateRangePicker({
 
         return (
           <div className="flex gap-2">
-            {!active || type === "from" ? (
-              <div className="w-full">
-                <MonthYearPicker
-                  value={parsed}
-                  onChange={({ year, month }) => {
-                    field.onChange(`${year}-${String(month + 1).padStart(2, "0")}`);
-                  }}
-                  placeholder={placeholder ?? (type === "from" ? "Start Date" : "End Date")}
-                  // disabled={}
-                />
-              </div>
-            ) : null}
+            <div className="w-full">
+              <MonthYearPicker
+                value={parsed}
+                onChange={({ year, month }) => {
+                  field.onChange(`${year}-${String(month + 1).padStart(2, "0")}`);
+                }}
+                placeholder={placeholder ?? (type === "from" ? "Start Date" : "End Date")}
+                disabled={active}
+              />
+            </div>
             {type === "to" ? (
-              <div className="shrink-0 flex items-center gap-3">
-                <Checkbox
+              <div className="shrink-0 flex items-center gap-x-2">
+                <Switch
                   id={name}
                   checked={active}
                   onCheckedChange={(checked) => {

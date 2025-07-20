@@ -1,6 +1,6 @@
 "use client";
 
-import { ResumeSchema } from "@/lib/supabase/resumes/schema";
+import { ResumeSchema } from "@/lib/schemas/resume-schema";
 import { cn } from "@/lib/utils";
 import { forwardRef } from "react";
 import { resumeTemplates } from "./template-registry";

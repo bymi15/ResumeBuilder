@@ -1,4 +1,4 @@
-import { ResumeSchema } from "./schema";
+import { ResumeSchema } from "@/lib/schemas/resume-schema";
 
 export interface CreateResumePayload {
   title: string;

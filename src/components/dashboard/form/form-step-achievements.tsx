@@ -1,28 +1,20 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
-import { ResumeSchema } from "@/lib/supabase/resumes/schema";
-import { memo } from "react";
-import {
-  Control,
-  UseFormRegister,
-  UseFormSetValue,
-  UseFormWatch,
-  useFieldArray,
-} from "react-hook-form";
+import { ResumeSchema } from "@/lib/schemas/resume-schema";
+import { useFieldArray, useFormContext } from "react-hook-form";
+import ErrorLabel from "./error-label";
 import FormDateRangePicker from "./form-date-range-picker";
 
-export const FormStepAchievements = memo(function FormStepAchievements({
-  register,
-  watch,
-  setValue,
-  control,
-}: {
-  register: UseFormRegister<ResumeSchema>;
-  watch: UseFormWatch<ResumeSchema>;
-  setValue: UseFormSetValue<ResumeSchema>;
-  control: Control<ResumeSchema>;
-}) {
+export function FormStepAchievements() {
+  const {
+    register,
+    watch,
+    setValue,
+    control,
+    formState: { errors },
+  } = useFormContext<ResumeSchema>();
+
   const { append: appendAchievement, remove: removeAchievement } = useFieldArray({
     control,
     name: "achievements",
@@ -35,9 +27,10 @@ export const FormStepAchievements = memo(function FormStepAchievements({
       <CardContent className="space-y-4">
         <h2 className="text-xl font-semibold">Achievements</h2>
 
-        {watchedAchievements?.map((field, index) => (
-          <div key={index} className="space-y-2 border p-4 rounded">
+        {watchedAchievements?.map((_, index) => (
+          <div key={index} className="space-y-4 border p-4 rounded">
             <Input {...register(`achievements.${index}.title`)} placeholder="Achievement Title" />
+            <ErrorLabel error={errors.achievements?.[index]?.title} />
             <Input
               {...register(`achievements.${index}.institute`)}
               placeholder="Institute (optional)"
@@ -53,6 +46,7 @@ export const FormStepAchievements = memo(function FormStepAchievements({
               type="from"
               placeholder="Date of Achievement"
             />
+            <ErrorLabel error={errors.achievements?.[index]?.date} />
             <Button type="button" onClick={() => removeAchievement(index)} variant="secondary">
               Remove Achievement
             </Button>
@@ -73,4 +67,4 @@ export const FormStepAchievements = memo(function FormStepAchievements({
       </CardContent>
     </Card>
   );
-});
+}

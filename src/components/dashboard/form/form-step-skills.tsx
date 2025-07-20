@@ -1,17 +1,17 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
-import { ResumeSchema } from "@/lib/supabase/resumes/schema";
-import { memo } from "react";
-import { Control, UseFormRegister, useFieldArray } from "react-hook-form";
+import { ResumeSchema } from "@/lib/schemas/resume-schema";
+import { useFieldArray, useFormContext } from "react-hook-form";
+import ErrorLabel from "./error-label";
 
-export const FormStepSkills = memo(function FormStepSkills({
-  register,
-  control,
-}: {
-  register: UseFormRegister<ResumeSchema>;
-  control: Control<ResumeSchema>;
-}) {
+export function FormStepSkills() {
+  const {
+    register,
+    control,
+    formState: { errors },
+  } = useFormContext<ResumeSchema>();
+
   const {
     fields: skills,
     append: appendSkill,
@@ -26,11 +26,14 @@ export const FormStepSkills = memo(function FormStepSkills({
       <CardContent className="space-y-4">
         <h2 className="text-xl font-semibold">Skills</h2>
         {skills.map((field, index) => (
-          <div key={field.id} className="flex gap-2">
-            <Input {...register(`skills.${index}.value`)} placeholder={`Skill #${index + 1}`} />
-            <Button type="button" onClick={() => removeSkill(index)} variant="secondary">
-              Remove
-            </Button>
+          <div key={field.id} className="space-y-4">
+            <div className="flex gap-2">
+              <Input {...register(`skills.${index}.value`)} placeholder={`Skill #${index + 1}`} />
+              <Button type="button" onClick={() => removeSkill(index)} variant="secondary">
+                Remove
+              </Button>
+            </div>
+            <ErrorLabel error={errors.skills?.[index]?.value} />
           </div>
         ))}
         <Button type="button" onClick={() => appendSkill({ value: "" })}>
@@ -39,4 +42,4 @@ export const FormStepSkills = memo(function FormStepSkills({
       </CardContent>
     </Card>
   );
-});
+}
