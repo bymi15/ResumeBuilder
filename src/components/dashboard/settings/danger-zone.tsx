@@ -13,7 +13,6 @@ import {
 } from "@/components/ui/alert-dialog";
 import { Button } from "@/components/ui/button";
 import { useDeleteAuthUserMutation } from "@/hooks/api/auth/use-delete-auth-user-mutation";
-import { signOut } from "@/lib/supabase/auth";
 import { redirect } from "next/navigation";
 import { toast } from "sonner";
 
@@ -23,7 +22,6 @@ export function DangerZone() {
   async function handleDeleteAccount() {
     try {
       await deleteUser();
-      await signOut();
       redirect("/goodbye");
     } catch (err) {
       toast.error("Failed to delete account. Please try again.");
