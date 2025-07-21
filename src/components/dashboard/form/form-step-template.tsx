@@ -7,11 +7,7 @@ import TemplateLayoutSelector from "./template-layout-selector";
 import TemplateThemeSelector from "./template-theme-selector";
 
 export default function FormStepTemplate() {
-  const {
-    control,
-    setValue,
-    formState: { errors },
-  } = useFormContext<ResumeSchema>();
+  const { control, setValue } = useFormContext<ResumeSchema>();
   return (
     <Card>
       <CardContent className="space-y-4">
