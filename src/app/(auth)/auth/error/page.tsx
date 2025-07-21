@@ -9,12 +9,13 @@ const errorMessages: Record<string, string> = {
   unexpected_error: "An unexpected error occurred. Please try again.",
 };
 
-interface AuthErrorProps {
-  searchParams: { reason?: string };
-}
-
-export default function AuthError({ searchParams }: AuthErrorProps) {
-  const message = errorMessages[searchParams.reason ?? ""] || "Authentication failed.";
+export default function AuthErrorPage({
+  searchParams,
+}: {
+  searchParams?: Record<string, string | string[] | undefined>;
+}) {
+  const reason = typeof searchParams?.reason === "string" ? searchParams.reason : "";
+  const message = errorMessages[reason] || "Authentication failed. Please try again.";
 
   return (
     <main className="min-h-screen bg-white flex items-center justify-center px-4">
