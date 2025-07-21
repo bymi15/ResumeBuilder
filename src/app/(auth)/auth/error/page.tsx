@@ -9,13 +9,15 @@ const errorMessages: Record<string, string> = {
   unexpected_error: "An unexpected error occurred. Please try again.",
 };
 
-export default function AuthErrorPage({
+export default async function AuthErrorPage({
   searchParams,
 }: {
-  searchParams?: Record<string, string | string[] | undefined>;
+  searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
 }) {
-  const reason = typeof searchParams?.reason === "string" ? searchParams.reason : "";
-  const message = errorMessages[reason] || "Authentication failed. Please try again.";
+  const { reason } = await searchParams;
+  const message =
+    errorMessages[typeof reason === "string" ? reason : ""] ||
+    "Authentication failed. Please try again.";
 
   return (
     <main className="min-h-screen bg-white flex items-center justify-center px-4">
