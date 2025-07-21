@@ -67,7 +67,7 @@ export default function ResumePreview() {
 
   return (
     <div className="p-6 space-y-6">
-      <div className="sticky top-[--header-height] z-10 bg-background py-4 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 border-b">
+      <div className="sticky top-[--header-height] z-10 bg-background py-4 flex flex-col lg:flex-row lg:items-center lg:justify-between gap-2 border-b">
         <div>
           <h1 className="text-2xl font-semibold">{resume.title}</h1>
           <p className="text-sm text-muted-foreground">
@@ -100,7 +100,7 @@ export default function ResumePreview() {
           </Button>
         </div>
       </div>
-      <div className="bg-muted rounded-xl shadow-md overflow-hidden py-8 px-4 sm:px-6">
+      <div className="bg-muted rounded-xl shadow-md overflow-hidden py-8 px-4 md:px-6">
         <TemplateRenderer ref={contentRef} data={resume.data} />
       </div>
     </div>

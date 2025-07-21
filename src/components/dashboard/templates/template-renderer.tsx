@@ -17,14 +17,23 @@ const TemplateRenderer = forwardRef<HTMLDivElement, TemplateRendererProps>(
 
     const Template = selected.component;
     return (
-      <Template
-        className={cn(
-          "max-w-4xl print:w-[794px] print:h-[1123px] w-[794px] h-[1123px] print:overflow-hidden",
-          className
-        )}
-        ref={ref}
-        data={data}
-      />
+      <>
+        {/* Mobile version (scaled to fit width) */}
+        <div className="block md:hidden">
+          <Template data={data} className="pointer-events-none" />
+        </div>
+        {/* Desktop + print version (full size) */}
+        <div className="hidden md:block print:block">
+          <Template
+            ref={ref}
+            data={data}
+            className={cn(
+              "w-[794px] h-[1123px] max-w-4xl mx-auto print:w-[794px] print:h-[1123px] print:overflow-hidden",
+              className
+            )}
+          />
+        </div>
+      </>
     );
   }
 );

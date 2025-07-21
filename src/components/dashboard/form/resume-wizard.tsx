@@ -1,6 +1,13 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import { useCreateResumeMutation } from "@/hooks/api/resumes/use-create-resume-mutation";
 import { useResumeByIdQuery } from "@/hooks/api/resumes/use-resume-by-id-query";
 import { useUpdateResumeMutation } from "@/hooks/api/resumes/use-update-resume-mutation";
@@ -209,9 +216,36 @@ export default function ResumeWizard() {
   }
 
   return (
-    <main className="flex" style={{ height: "calc(100vh - var(--header-height))" }}>
+    <main
+      className="flex flex-col lg:flex-row"
+      style={{ height: "calc(100vh - var(--header-height))" }}
+    >
+      {/* Mobile dropdown */}
+      <div className="lg:hidden w-full px-4 py-3">
+        <Select value={String(currentStep)} onValueChange={(val) => goToStep(Number(val))}>
+          <SelectTrigger className="w-full">
+            <SelectValue placeholder="Select step" />
+          </SelectTrigger>
+          <SelectContent className="w-full">
+            {steps.map(({ label, icon: Icon }, index) => (
+              <SelectItem
+                key={index}
+                value={String(index)}
+                className="w-full justify-start text-left"
+              >
+                <div className="flex items-center w-full gap-2">
+                  <Icon size={20} />
+                  <span>{label}</span>
+                  {hasErrors(label) && <AlertCircle size={16} className="text-red-500" />}
+                </div>
+              </SelectItem>
+            ))}
+          </SelectContent>
+        </Select>
+      </div>
+
       {/* Sidebar Navigation */}
-      <aside className="w-64 bg-gray-100 dark:bg-gray-800 border-r p-4 overflow-y-auto">
+      <aside className="hidden lg:block w-64 bg-gray-100 dark:bg-gray-800 border-r p-4 overflow-y-auto">
         <nav className="space-y-2">
           {steps.map(({ label, icon: Icon }, index) => {
             const error = hasErrors(label);
