@@ -15,7 +15,8 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: "StyledResume",
-  description: "Build your modern, professional resume with ease",
+  description:
+    "The easiest way to create beautiful, professional resumes. Choose from modern templates, customize freely, and download instantly — no design skills needed.",
 };
 
 export default function RootLayout({

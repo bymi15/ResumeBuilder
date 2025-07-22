@@ -9,7 +9,7 @@ export default function CallToAction() {
         <p className="text-lg mb-6">It only takes a few minutes to stand out.</p>
         <Link href="/dashboard" passHref>
           <Button size="lg" variant="secondary" asChild>
-            <span>Start Building</span>
+            <span>Build Your Resume</span>
           </Button>
         </Link>
       </div>

@@ -23,17 +23,17 @@ export default function Hero() {
 
       <div className="container relative z-10 mx-auto px-6 grid grid-cols-1 md:grid-cols-2 items-center gap-y-16 md:gap-12 py-24">
         {/* Text Content */}
-        <div className="text-center md:text-left">
-          <h1 className="text-4xl md:text-5xl font-extrabold leading-tight tracking-tight mb-6 text-foreground">
-            Build your <span className="text-primary">Resume</span> Now
+        <div className="text-center md:text-left space-y-6">
+          <h1 className="text-4xl md:text-6xl font-bold leading-tight tracking-tight text-foreground">
+            Professional Resumes Made Effortless
           </h1>
-          <p className="text-muted-foreground font-medium text-lg mb-8 max-w-xl mx-auto md:mx-0">
-            Create modern, professional resumes in minutes. Choose a template, customize everything,
-            and export to PDF — no design skills needed.
+          <p className="text-muted-foreground font-medium text-lg max-w-xl mx-auto md:mx-0">
+            The easiest way to create beautiful, professional resumes. Choose from modern templates,
+            customize freely, and download instantly — no design skills needed.
           </p>
           <Link href="/dashboard" passHref>
             <Button size="lg" asChild>
-              <span>Start Building</span>
+              <span>Build Your Resume</span>
             </Button>
           </Link>
         </div>
@@ -49,7 +49,7 @@ export default function Hero() {
         >
           <Image
             src="/images/sampleresume.jpg"
-            alt="Resume Preview"
+            alt="Preview of a modern resume created with StyledResume"
             fill
             className="object-cover"
             priority
