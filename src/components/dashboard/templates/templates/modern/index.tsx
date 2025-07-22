@@ -10,208 +10,229 @@ const ModernTemplate = forwardRef<HTMLDivElement, TemplateProps>(
     return (
       <div
         ref={ref}
-        className={cn(
-          "w-full max-w-4xl mx-auto bg-white text-black grid grid-cols-3 min-h-screen",
-          className
-        )}
+        className={cn("mx-auto bg-white p-8 font-sans text-sm leading-relaxed", className)}
         style={
           {
             "--primary": theme.primaryColor,
             "--secondary": theme.secondaryColor,
-            "--sidebar-text": theme.sidebarTextColor,
-            "--sidebar-background": theme.sidebarBackgroundColor ?? theme.primaryColor,
             "--main-text": theme.mainTextColor,
+            color: "var(--main-text)",
             fontFamily: '"Helvetica Neue", Arial, sans-serif',
           } as React.CSSProperties
         }
       >
-        {/* Sidebar */}
-        <aside className="bg-[--sidebar-background] text-[--sidebar-text] p-6 space-y-6 col-span-1">
+        {/* Header */}
+        <div className="flex justify-between items-start border-b-2 border-[var(--secondary)] pb-4 mb-4">
           <div>
-            <h1 className="text-xl font-bold uppercase">{data.fullName || "Your Name"}</h1>
-            <p className="text-sm">
-              {data.currentRole && (
+            <h1 className="text-2xl font-bold uppercase text-[var(--primary)]">
+              {data.fullName || "Your Name"}
+            </h1>
+            <p className="text-[var(--secondary)]">
+              {data.currentRole ? (
                 <>
-                  {data.currentRole} <br />
+                  <span className="font-semibold">{data.currentRole}</span>
+                  {" | "}
                 </>
+              ) : (
+                ""
               )}
-              {data.email} <br />
-              {[data.location?.city, data.location?.country].filter(Boolean).join(", ")}
+              {data.email}
+              {data.location?.city || data.location?.country
+                ? ` | ${[data.location.city, data.location.country].filter(Boolean).join(", ")}`
+                : ""}
             </p>
           </div>
 
-          {data.skills?.length ? (
-            <section>
-              <h2 className="text-sm font-bold uppercase mb-2">Skills</h2>
-              <ul className="list-disc list-inside space-y-1 text-sm">
-                {data.skills.map((skill, i) => (
-                  <li key={i}>{skill.value}</li>
-                ))}
-              </ul>
-            </section>
-          ) : null}
-
           {data.links?.length ? (
-            <section>
-              <h2 className="text-sm font-bold uppercase mb-2">Links</h2>
-              <ul className="space-y-1 text-sm">
-                {data.links.map((link, i) => (
-                  <li key={i}>
-                    <a
-                      href={link.url}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="hover:underline"
-                    >
-                      {link.label}
-                    </a>
-                  </li>
-                ))}
-              </ul>
-            </section>
+            <div className="ml-auto flex flex-col gap- text-sm text-blue-600">
+              {data.links.map((link, i) => (
+                <p key={i}>
+                  <a
+                    href={link.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="hover:underline"
+                  >
+                    {link.label}
+                  </a>
+                </p>
+              ))}
+            </div>
           ) : null}
-        </aside>
+        </div>
 
-        {/* Main Content */}
-        <main className="col-span-2 p-8 text-[--main-text] space-y-6">
-          {/* Work Experience */}
-          {data.workExperience?.length ? (
-            <section>
-              <h2 className="text-lg font-semibold uppercase text-[--primary] mb-3">
-                Work Experience
-              </h2>
-              <div className="space-y-4">
-                {data.workExperience.map((exp, i) => (
-                  <div key={i}>
-                    <h3 className="font-semibold text-base">{exp.title}</h3>
-                    <p className="text-sm italic">{exp.company}</p>
-                    <div className="flex gap-4 text-xs text-gray-600 mt-1">
-                      <span className="flex items-center gap-1">
-                        <Calendar className="w-3 h-3" />
-                        {formatDateRange(exp.dateRange)}
-                      </span>
-                      {exp.location && (
-                        <span className="flex items-center gap-1">
-                          <MapPinIcon className="w-3 h-3" />
-                          {exp.location}
-                        </span>
-                      )}
+        <div className="grid grid-cols-3 gap-2">
+          <div className="col-span-2 space-y-4">
+            {/* Experience */}
+            {data.workExperience?.length ? (
+              <section>
+                <h2 className="font-bold uppercase text-base text-[var(--primary)] mb-2">
+                  Work Experience
+                </h2>
+                <div className="space-y-2">
+                  {data.workExperience.map((exp, i) => (
+                    <div key={i}>
+                      <h3 className="font-bold tracking-wide text-[var(--secondary)]">
+                        {exp.title}
+                      </h3>
+                      <h5 className="font-semibold tracking-wide uppercase text-[var(--secondary)]">
+                        {exp.company}
+                      </h5>
+                      <div className="flex gap-3 items-center">
+                        <p className="flex items-center gap-1 text-xs text-[var(--secondary)]">
+                          <Calendar className="w-3 h-3" />
+                          <span>{formatDateRange(exp.dateRange)}</span>
+                        </p>
+                        {exp.location ? (
+                          <p className="flex items-center gap-1 text-xs text-[var(--secondary)]">
+                            <MapPinIcon className="h-3 w-3" />
+                            <span>{exp.location}</span>
+                          </p>
+                        ) : null}
+                      </div>
+                      <ul className="list-disc pl-5 mt-1">
+                        {exp.description.map((desc, j) => (
+                          <li key={j}>{desc}</li>
+                        ))}
+                      </ul>
                     </div>
-                    <ul className="list-disc pl-5 mt-2 text-sm">
-                      {exp.description.map((desc, j) => (
-                        <li key={j}>{desc}</li>
-                      ))}
-                    </ul>
-                  </div>
-                ))}
-              </div>
-            </section>
-          ) : null}
+                  ))}
+                </div>
+              </section>
+            ) : null}
 
-          {/* Education */}
-          {data.education?.length ? (
-            <section>
-              <h2 className="text-lg font-semibold uppercase text-[--primary] mb-3">Education</h2>
-              <div className="space-y-3">
-                {data.education.map((edu, i) => (
-                  <div key={i}>
-                    <h3 className="font-semibold">{edu.course}</h3>
-                    <p className="italic">{edu.institute}</p>
-                    <p className="text-xs text-gray-600">
-                      <Calendar className="w-3 h-3 inline mr-1" />
-                      {formatDateRange(edu.dateRange)}
-                    </p>
-                    {edu.description && <p className="text-sm mt-1">{edu.description}</p>}
-                  </div>
-                ))}
-              </div>
-            </section>
-          ) : null}
+            {/* Education */}
+            {data.education?.length ? (
+              <section>
+                <h2 className="font-bold uppercase text-base text-[var(--primary)] mb-2">
+                  Education
+                </h2>
+                <div className="space-y-2">
+                  {data.education.map((edu, i) => (
+                    <div key={i}>
+                      <p className="font-semibold text-[var(--secondary)]">{edu.course}</p>
+                      <p className="font-medium uppercase text-[var(--secondary)]">
+                        {edu.institute}
+                      </p>
+                      <p className="flex items-center gap-1 text-xs text-[var(--secondary)]">
+                        <Calendar className="w-3 h-3" />
+                        <span>{formatDateRange(edu.dateRange)}</span>
+                      </p>
+                      {edu.description && <p className="mt-1">{edu.description}</p>}
+                    </div>
+                  ))}
+                </div>
+              </section>
+            ) : null}
 
-          {/* Projects */}
-          {data.projects?.length ? (
-            <section>
-              <h2 className="text-lg font-semibold uppercase text-[--primary] mb-3">Projects</h2>
-              <div className="space-y-3">
-                {data.projects.map((proj, i) => (
-                  <div key={i}>
-                    <h3 className="font-semibold">{proj.title}</h3>
-                    <p className="text-xs text-gray-600 flex items-center gap-2">
-                      <Calendar className="w-3 h-3" />
-                      {formatDateRange(proj.dateRange)}
-                      <UserRound className="w-3 h-3 ml-3" />
-                      {proj.type}
-                    </p>
-                    <ul className="list-disc pl-5 mt-2 text-sm">
-                      {proj.description.map((desc, j) => (
-                        <li key={j}>{desc}</li>
-                      ))}
-                    </ul>
-                  </div>
-                ))}
-              </div>
-            </section>
-          ) : null}
-
-          {/* Achievements */}
-          {data.achievements?.length ? (
-            <section>
-              <h2 className="text-lg font-semibold uppercase text-[--primary] mb-3">
-                Achievements
-              </h2>
-              <ul className="space-y-2">
-                {data.achievements.map((ach, i) => (
-                  <li key={i}>
-                    <p className="font-semibold">{ach.title}</p>
-                    <p className="text-xs text-gray-600 flex items-center gap-2">
-                      {ach.date && (
-                        <>
+            {/* Projects */}
+            {data.projects?.length ? (
+              <section>
+                <h2 className="font-bold uppercase text-base text-[var(--primary)] mb-2">
+                  Projects
+                </h2>
+                <div className="space-y-2">
+                  {data.projects.map((proj, i) => (
+                    <div key={i}>
+                      <p className="font-semibold text-[var(--secondary)]">{proj.title}</p>
+                      <div className="flex gap-3 items-center">
+                        <p className="flex items-center gap-1 text-xs text-[var(--secondary)]">
                           <Calendar className="w-3 h-3" />
-                          {formatDate(ach.date)}
-                        </>
-                      )}
-                      {ach.institute && (
-                        <>
-                          <Landmark className="w-3 h-3 ml-3" />
-                          {ach.institute}
-                        </>
-                      )}
-                    </p>
-                    {ach.description && <p className="text-sm mt-1">{ach.description}</p>}
-                  </li>
-                ))}
-              </ul>
-            </section>
-          ) : null}
+                          <span>{formatDateRange(proj.dateRange)}</span>
+                        </p>
+                        <p className="flex items-center gap-1 text-xs text-[var(--secondary)]">
+                          <UserRound className="w-3 h-3" />
+                          <span>{proj.type}</span>
+                        </p>
+                      </div>
+                      <ul className="list-disc pl-5 mt-1">
+                        {proj.description.map((desc, j) => (
+                          <li key={j}>{desc}</li>
+                        ))}
+                      </ul>
+                    </div>
+                  ))}
+                </div>
+              </section>
+            ) : null}
+          </div>
+          <div className="space-y-4">
+            {/* Skills */}
+            {data.skills?.length ? (
+              <section>
+                <h2 className="font-bold uppercase text-base text-[var(--primary)] mb-2">Skills</h2>
+                <div className="flex flex-wrap gap-2 text-sm">
+                  {data.skills.map((skill, i) => (
+                    <span key={i} className="bg-[var(--secondary)] text-white px-2 py-1 rounded">
+                      {skill.value}
+                    </span>
+                  ))}
+                </div>
+              </section>
+            ) : null}
 
-          {/* Activities */}
-          {data.activities?.length ? (
-            <section>
-              <h2 className="text-lg font-semibold uppercase text-[--primary] mb-3">Activities</h2>
-              <ul className="space-y-2">
-                {data.activities.map((act, i) => (
-                  <li key={i}>
-                    <p className="font-semibold">{act.title}</p>
-                    <p className="text-xs text-gray-600 flex items-center gap-2">
-                      {act.dateRange && (
-                        <>
+            {/* Achievements */}
+            {data.achievements?.length ? (
+              <section>
+                <h2 className="font-bold uppercase text-base text-[var(--primary)] mb-2">
+                  Achievements
+                </h2>
+                <div className="space-y-2">
+                  {data.achievements.map((achievement, i) => (
+                    <div key={i} className="space-y-1">
+                      <p className="font-semibold text-[var(--secondary)]">{achievement.title}</p>
+                      <div className="flex gap-x-3 gap-y-1 items-center flex-wrap">
+                        <p className="flex items-center gap-1 text-xs text-[var(--secondary)]">
                           <Calendar className="w-3 h-3" />
-                          {formatDateRange(act.dateRange)}
-                        </>
-                      )}
-                      {act.locationOrCompany && (
-                        <>
-                          <Landmark className="w-3 h-3 ml-3" />
-                          {act.locationOrCompany}
-                        </>
-                      )}
-                    </p>
-                  </li>
-                ))}
-              </ul>
-            </section>
-          ) : null}
-        </main>
+                          <span>{formatDate(achievement.date)}</span>
+                        </p>
+                        {achievement.institute ? (
+                          <p className="flex items-center gap-1 text-xs text-[var(--secondary)]">
+                            <Landmark className="w-3 h-3" />
+                            <span>{achievement.institute}</span>
+                          </p>
+                        ) : null}
+                      </div>
+                      {achievement.description ? (
+                        <p className="text-xs">{achievement.description}</p>
+                      ) : null}
+                    </div>
+                  ))}
+                </div>
+              </section>
+            ) : null}
+
+            {/* Activities */}
+            {data.activities?.length ? (
+              <section>
+                <h2 className="font-bold uppercase text-base text-[var(--primary)] mb-2">
+                  Activities
+                </h2>
+                <div className="space-y-2">
+                  {data.activities.map((activity, i) => (
+                    <div key={i} className="space-y-1">
+                      <p className="font-semibold text-[var(--secondary)]">{activity.title}</p>
+                      <div className="flex gap-x-3 gap-y-1 items-center flex-wrap">
+                        {activity.dateRange ? (
+                          <p className="flex items-center gap-1 text-xs text-[var(--secondary)]">
+                            <Calendar className="w-3 h-3" />
+                            <span>{formatDateRange(activity.dateRange)}</span>
+                          </p>
+                        ) : null}
+                        {activity.locationOrCompany ? (
+                          <p className="flex items-center gap-1 text-xs text-[var(--secondary)]">
+                            <Landmark className="w-3 h-3" />
+                            <span>{activity.locationOrCompany}</span>
+                          </p>
+                        ) : null}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </section>
+            ) : null}
+          </div>
+        </div>
       </div>
     );
   }

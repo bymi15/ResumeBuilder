@@ -4,9 +4,9 @@
     "name": "Elegant Black",
     "theme": {
       "primaryColor": "#000000",
-      "secondaryColor": "#555555",
+      "secondaryColor": "#222222",
       "sidebarTextColor": "#ffffff",
-      "mainTextColor": "#999999"
+      "mainTextColor": "#666666"
     }
   },
   {

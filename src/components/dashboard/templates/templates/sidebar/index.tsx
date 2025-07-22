@@ -165,11 +165,13 @@ const SidebarTemplate = forwardRef<HTMLDivElement, TemplateProps>(
           {/* Experience */}
           {data.workExperience?.length ? (
             <section>
-              <h2 className="text-lg font-semibold text-(--primary)">Work Experience</h2>
+              <h2 className="text-base uppercase font-semibold text-(--primary) border-b-2 border-[var(--secondary)]">
+                Work Experience
+              </h2>
               {data.workExperience.map((exp, i) => (
                 <div key={i} className="mb-2">
-                  <h3 className="font-bold text-(--secondary) tracking-wide">{exp.title}</h3>
-                  <h5 className="font-bold text-(--secondary) tracking-wide uppercase">
+                  <h3 className="font-extrabold text-(--secondary) tracking-wide">{exp.title}</h3>
+                  <h5 className="font-semibold text-(--main-text) tracking-wide uppercase">
                     {exp.company}
                   </h5>
                   <div className="flex gap-3 items-center">
@@ -197,11 +199,13 @@ const SidebarTemplate = forwardRef<HTMLDivElement, TemplateProps>(
           {/* Education */}
           {data.education?.length ? (
             <section>
-              <h2 className="text-lg font-semibold text-(--primary)">Education</h2>
+              <h2 className="text-base uppercase font-semibold text-(--primary) border-b-2 border-[var(--secondary)]">
+                Education
+              </h2>
               {data.education.map((edu, i) => (
                 <div key={i} className="mb-2">
-                  <h3 className="font-bold text-(--secondary)">{edu.course}</h3>
-                  <h5 className="font-bold text-(--secondary) tracking-wide uppercase">
+                  <h3 className="font-extrabold text-(--secondary)">{edu.course}</h3>
+                  <h5 className="font-semibold text-(--main-text) tracking-wide uppercase">
                     {edu.institute}
                   </h5>
                   <p className="flex items-center gap-1 text-xs text-gray-500">
@@ -217,10 +221,12 @@ const SidebarTemplate = forwardRef<HTMLDivElement, TemplateProps>(
           {/* Projects */}
           {data.projects?.length ? (
             <section>
-              <h2 className="text-lg font-semibold text-(--primary)">Projects</h2>
+              <h2 className="text-base uppercase font-semibold text-(--primary) border-b-2 border-[var(--secondary)]">
+                Projects
+              </h2>
               {data.projects.map((proj, i) => (
                 <div key={i} className="mb-2">
-                  <h3 className="font-bold text-(--secondary)">{proj.title}</h3>
+                  <h3 className="font-extrabold text-(--secondary)">{proj.title}</h3>
 
                   <div className="flex gap-3 items-center">
                     <p className="flex items-center gap-1 text-xs text-gray-500">
