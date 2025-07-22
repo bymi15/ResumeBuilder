@@ -30,6 +30,7 @@ import {
   IconCreditCard,
   IconDotsVertical,
   IconFolder,
+  IconHelp,
   IconLogout,
   IconTemplate,
   IconUserCircle,
@@ -56,11 +57,11 @@ const data = {
     //   url: "/dashboard/settings",
     //   icon: IconSettings,
     // },
-    // {
-    //   title: "Get Help",
-    //   url: "#",
-    //   icon: IconHelp,
-    // },
+    {
+      title: "Get Help",
+      url: "/dashboard/help",
+      icon: IconHelp,
+    },
   ],
 };
 
