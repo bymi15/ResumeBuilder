@@ -1,6 +1,6 @@
 "use client";
 
-import { resumeTemplates } from "../templates/template-registry";
+import { resumeTemplates } from "../templates/templates";
 
 export default function TemplateLayoutSelector({
   onSelect,

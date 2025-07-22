@@ -30,13 +30,13 @@ import {
   IconCreditCard,
   IconDotsVertical,
   IconFolder,
-  IconInnerShadowTop,
   IconLogout,
   IconTemplate,
   IconUserCircle,
   type Icon,
 } from "@tabler/icons-react";
 import { useQueryClient } from "@tanstack/react-query";
+import { Wrench } from "lucide-react";
 import Link from "next/link";
 import { redirect, usePathname } from "next/navigation";
 import { useTransition } from "react";
@@ -73,8 +73,8 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
           <SidebarMenuItem>
             <SidebarMenuButton asChild className="data-[slot=sidebar-menu-button]:!p-1.5">
               <Link href="/">
-                <IconInnerShadowTop className="!size-5" />
-                <span className="text-base font-semibold">ResumeBuilder</span>
+                <Wrench className="!size-5" />
+                <span className="text-base font-semibold">StyledResume</span>
               </Link>
             </SidebarMenuButton>
           </SidebarMenuItem>

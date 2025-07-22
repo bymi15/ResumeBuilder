@@ -1,4 +1,4 @@
-# ResumeBuilder
+# StyledResume
 
 ## Tech Stack
 

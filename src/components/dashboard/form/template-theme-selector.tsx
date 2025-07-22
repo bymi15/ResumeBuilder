@@ -1,8 +1,9 @@
 "use client";
 
 import { cn } from "@/lib/utils";
+import { TemplateTheme } from "@/types/template";
 import { Check } from "lucide-react";
-import { TemplateTheme, templateThemes } from "../templates/template-registry";
+import { templateThemes } from "../templates/themes";
 
 export default function TemplateThemeSelector({
   onSelect,

@@ -1,0 +1,97 @@
+[
+  {
+    "id": "elegant-black",
+    "name": "Elegant Black",
+    "theme": {
+      "primaryColor": "#000000",
+      "secondaryColor": "#555555",
+      "sidebarTextColor": "#ffffff",
+      "mainTextColor": "#999999"
+    }
+  },
+  {
+    "id": "classic-blue",
+    "name": "Classic Blue",
+    "theme": {
+      "primaryColor": "#121f7d",
+      "secondaryColor": "#5c6b9c",
+      "sidebarTextColor": "#ffffff",
+      "mainTextColor": "#6b7280"
+    }
+  },
+  {
+    "id": "modern-sky",
+    "name": "Modern Sky",
+    "theme": {
+      "primaryColor": "#2563eb",
+      "secondaryColor": "#60a5fa",
+      "sidebarTextColor": "#ffffff",
+      "sidebarBackgroundColor": "#1e3a8a",
+      "mainTextColor": "#475569"
+    }
+  },
+  {
+    "id": "forest-green",
+    "name": "Forest Green",
+    "theme": {
+      "primaryColor": "#065f46",
+      "secondaryColor": "#34d399",
+      "sidebarTextColor": "#ffffff",
+      "mainTextColor": "#4b5563"
+    }
+  },
+  {
+    "id": "sunset",
+    "name": "Sunset",
+    "theme": {
+      "primaryColor": "#c2410c",
+      "secondaryColor": "#fb923c",
+      "sidebarTextColor": "#ffffff",
+      "sidebarBackgroundColor": "#7c2d12",
+      "mainTextColor": "#374151"
+    }
+  },
+  {
+    "id": "charcoal",
+    "name": "Charcoal",
+    "theme": {
+      "primaryColor": "#1f2937",
+      "secondaryColor": "#6b7280",
+      "sidebarTextColor": "#ffffff",
+      "mainTextColor": "#9ca3af"
+    }
+  },
+  {
+    "id": "lavender",
+    "name": "Lavender",
+    "theme": {
+      "primaryColor": "#7c3aed",
+      "secondaryColor": "#a78bfa",
+      "sidebarTextColor": "#ffffff",
+      "sidebarBackgroundColor": "#4c1d95",
+      "mainTextColor": "#4b5563"
+    }
+  },
+  {
+    "id": "ocean",
+    "name": "Ocean",
+    "theme": {
+      "primaryColor": "#0e7490",
+      "secondaryColor": "#155e75",
+      "sidebarTextColor": "#e0f2f1",
+      "sidebarBackgroundColor": "#164e63",
+      "mainTextColor": "#334155"
+    }
+  },
+  {
+    "id": "rose-gold",
+    "name": "Rose Gold",
+    "theme": {
+      "primaryColor": "#b76e79",
+      "secondaryColor": "#f4c2c2",
+      "sidebarTextColor": "#ffffff",
+      "sidebarBackgroundColor": "#5a2a2a",
+      "mainTextColor": "#3f3f46"
+    }
+  }
+]

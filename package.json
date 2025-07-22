@@ -9,7 +9,9 @@
     "lint": "next lint",
     "pages:build": "npx @cloudflare/next-on-pages",
     "preview": "npm run pages:build && wrangler pages dev",
-    "deploy": "npm run pages:build && wrangler pages deploy"
+    "deploy": "npm run pages:build && wrangler pages deploy",
+    "add:template": "node src/scripts/add-template.js",
+    "generate:thumbnail": "node src/scripts/generate-thumbnail.js"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.1.1",
@@ -34,6 +36,7 @@
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "date-fns": "^4.1.0",
+    "fs-extra": "^11.3.0",
     "install": "^0.13.0",
     "lucide-react": "^0.525.0",
     "motion": "^12.23.1",
@@ -55,11 +58,13 @@
     "@cloudflare/next-on-pages": "^1.13.12",
     "@eslint/eslintrc": "^3",
     "@tailwindcss/postcss": "^4",
+    "@types/fs-extra": "^11.0.4",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "eslint": "^9",
     "eslint-config-next": "15.3.5",
+    "puppeteer": "^24.14.0",
     "tailwindcss": "^4",
     "tw-animate-css": "^1.3.5",
     "typescript": "^5",

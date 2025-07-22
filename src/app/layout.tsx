@@ -14,7 +14,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "ResumeBuilder",
+  title: "StyledResume",
   description: "Build your modern, professional resume with ease",
 };
 

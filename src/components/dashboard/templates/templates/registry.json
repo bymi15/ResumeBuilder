@@ -1,0 +1,22 @@
+[
+  {
+    "id": "standard",
+    "name": "Standard",
+    "thumbnail": "/images/templates/standard.jpg"
+  },
+  {
+    "id": "sidebar",
+    "name": "Sidebar",
+    "thumbnail": "/images/templates/sidebar.jpg"
+  },
+  {
+    "id": "modern",
+    "name": "Modern",
+    "thumbnail": "/images/templates/modern.jpg"
+  },
+  {
+    "id": "compact",
+    "name": "Compact",
+    "thumbnail": "/images/templates/compact.jpg"
+  }
+]

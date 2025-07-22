@@ -8,7 +8,7 @@ import ThemeToggle from "../shared/theme-toggle";
 
 export default function Hero() {
   return (
-    <section className="relative overflow-hidden h-screen flex items-center bg-gradient-to-br from-[#eef2ff] via-[#f8fafc] to-[#e0e7ff] dark:from-[#0f172a] dark:via-[#1e293b] dark:to-[#0f172a]">
+    <section className="relative min-h-[100dvh] flex items-center bg-gradient-to-br from-[#eef2ff] via-[#f8fafc] to-[#e0e7ff] dark:from-[#0f172a] dark:via-[#1e293b] dark:to-[#0f172a] overflow-hidden">
       {/* Theme Toggle Top Right */}
       <div className="absolute top-4 right-4 z-20">
         <ThemeToggle />
@@ -16,17 +16,12 @@ export default function Hero() {
 
       {/* Blurred gradient blobs */}
       <div aria-hidden className="absolute inset-0 z-0 pointer-events-none">
-        {/* Top Left Glow */}
         <div className="absolute -top-48 -left-48 w-[600px] h-[600px] bg-gradient-to-tr from-indigo-300 to-violet-400 rounded-full blur-[160px] opacity-40 dark:from-indigo-700 dark:to-violet-800" />
-
-        {/* Bottom Right Glow */}
         <div className="absolute bottom-[-80px] right-[-80px] w-[400px] h-[400px] bg-gradient-to-br from-sky-300 to-cyan-400 rounded-full blur-[100px] opacity-30 dark:from-sky-600 dark:to-cyan-700" />
-
-        {/* Optional center pulse (subtle) */}
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[200px] h-[200px] bg-gradient-to-tl from-pink-200 to-purple-300 rounded-full blur-[80px] opacity-20 dark:from-pink-600 dark:to-purple-800" />
       </div>
 
-      <div className="container relative z-10 mx-auto px-6 grid md:grid-cols-2 items-center gap-12">
+      <div className="container relative z-10 mx-auto px-6 grid grid-cols-1 md:grid-cols-2 items-center gap-y-16 md:gap-12 py-24">
         {/* Text Content */}
         <div className="text-center md:text-left">
           <h1 className="text-4xl md:text-5xl font-extrabold leading-tight tracking-tight mb-6 text-foreground">
@@ -43,9 +38,9 @@ export default function Hero() {
           </Link>
         </div>
 
-        {/* Animated Resume Preview */}
+        {/* Resume Preview */}
         <motion.div
-          className="relative w-full h-[500px] max-w-[350px] rounded-2xl overflow-hidden shadow-2xl border border-border aspect-[1/1.414] mx-auto"
+          className="relative w-full max-w-[350px] aspect-[1/1.414] mx-auto rounded-2xl overflow-hidden shadow-2xl border border-border"
           initial={{ opacity: 0, y: 50 }}
           whileInView={{ opacity: 1, y: 0 }}
           whileHover={{ scale: 1.03 }}
