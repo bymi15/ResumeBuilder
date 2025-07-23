@@ -15,34 +15,34 @@ export function FAQ() {
           <AccordionItem value="q1">
             <AccordionTrigger>How do I export my resume to PDF?</AccordionTrigger>
             <AccordionContent>
-              Go to "My Resumes", select your resume, click the "Download / Print" button at the top
+              {`Go to "My Resumes", select your resume, click the "Download / Print" button at the top
               right, and choose the destination: "Save as PDF". You can also print the PDF by
-              selecting a printer instead.
+              selecting a printer instead.`}
             </AccordionContent>
           </AccordionItem>
 
           <AccordionItem value="q2">
             <AccordionTrigger>Can I customize the fonts and colors?</AccordionTrigger>
             <AccordionContent>
-              Each template supports customization of colors and layout from the create resume form.
+              {`Each template supports customization of colors and layout from the create resume form.
               You can choose from various themes and layouts to match your style. Fonts are
-              currently not customizable.
+              currently not customizable.`}
             </AccordionContent>
           </AccordionItem>
 
           <AccordionItem value="q3">
             <AccordionTrigger>Is StyledResume free to use?</AccordionTrigger>
             <AccordionContent>
-              StyledResume is currently entirely free to use. You can create, edit, and download as
-              many resumes as you want.
+              {`StyledResume is currently entirely free to use. You can create, edit, and download as
+              many resumes as you want.`}
             </AccordionContent>
           </AccordionItem>
 
           <AccordionItem value="q4">
             <AccordionTrigger>How do I contact support?</AccordionTrigger>
             <AccordionContent>
-              Scroll down and submit the contact form. We will aim to respond to your query as soon
-              as possible.
+              {`Scroll down and submit the contact form. We will aim to respond to your query as soon
+              as possible.`}
             </AccordionContent>
           </AccordionItem>
         </Accordion>

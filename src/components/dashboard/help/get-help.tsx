@@ -13,8 +13,8 @@ export default function GetHelp() {
       </div>
 
       <p className="text-muted-foreground mb-6">
-        Need help with StyledResume? Start with the frequently asked questions below. If you're
-        still stuck, contact support.
+        {`Need help with StyledResume? Start with the frequently asked questions below. If you're
+        still stuck, contact support.`}
       </p>
 
       <FAQ />

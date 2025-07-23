@@ -7,9 +7,9 @@ export const getTemplateByID = async (id: string): Promise<TemplateRegistryEntry
   const entry = registry.find((t) => t.id === id);
   if (!entry) throw new Error(`Template with ID ${id} not found`);
 
-  const module = await import(`./${entry.id}/index.tsx`);
+  const templateComponent = await import(`./${entry.id}/index.tsx`);
   return {
     ...entry,
-    component: module.default,
+    component: templateComponent.default,
   };
 };

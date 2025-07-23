@@ -42,7 +42,11 @@ const SidebarTemplate = forwardRef<HTMLDivElement, TemplateProps>(
                   clipPath: "circle(50% at 50% 50%)",
                 }}
               >
-                <img className="object-cover w-full h-full" src={data.profilePhoto} />
+                <img
+                  className="object-cover w-full h-full"
+                  src={data.profilePhoto}
+                  alt="profile photo"
+                />
               </div>
             </div>
           ) : null}
