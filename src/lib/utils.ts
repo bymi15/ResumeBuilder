@@ -24,3 +24,7 @@ export function formatDateRange(dateRange: { from: string; to?: string }): strin
   const { from, to } = dateRange;
   return `${formatDate(from)} - ${formatDate(to)}`;
 }
+
+export function toLowerSnakeCase(str: string): string {
+  return str.replace(/\s+/g, "_").toLowerCase();
+}

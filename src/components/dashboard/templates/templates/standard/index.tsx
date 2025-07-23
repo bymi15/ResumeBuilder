@@ -9,10 +9,7 @@ const StandardTemplate = forwardRef<HTMLDivElement, TemplateProps>(
     return (
       <div
         ref={ref}
-        className={cn(
-          "mx-auto bg-white px-8 py-6 font-sans text-[13px] leading-[1.6] max-w-[750px]",
-          className
-        )}
+        className={cn("mx-auto bg-white px-8 py-6 font-sans text-[13px] leading-[1.6]", className)}
         style={
           {
             "--primary": theme.primaryColor,

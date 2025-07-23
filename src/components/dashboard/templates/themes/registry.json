@@ -14,9 +14,9 @@
     "name": "Classic Blue",
     "theme": {
       "primaryColor": "#121f7d",
-      "secondaryColor": "#5c6b9c",
+      "secondaryColor": "#111111",
       "sidebarTextColor": "#ffffff",
-      "mainTextColor": "#6b7280"
+      "mainTextColor": "#444952"
     }
   },
   {

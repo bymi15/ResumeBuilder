@@ -162,15 +162,14 @@ export default function ResumeWizard() {
         });
         router.push(`/dashboard/resume/${id}`);
       } else {
-        const res = await createResume({
+        const id = await createResume({
           title: resumeTitle.trim(),
           data: formData,
         });
-        console.log(res);
         toast.success("Your resume has been created", {
           description: "Your resume is now saved and ready to be edited or downloaded.",
         });
-        router.push("/dashboard");
+        router.push(`/dashboard/resume/${id}`);
       }
     } catch (err) {
       console.error("Failed to create/update resume:", err);

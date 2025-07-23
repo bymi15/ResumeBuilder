@@ -62,7 +62,7 @@ const TemplateRenderer = forwardRef<HTMLDivElement, TemplateRendererProps>(
             data={data}
             theme={theme}
             className={cn(
-              "w-[794px] h-[1123px] max-w-4xl mx-auto print:w-[794px] print:h-[1123px] print:overflow-hidden",
+              "w-[794px] min-h-[1123px] mx-auto print:w-[794px] print:min-h-[1123px] print:overflow-hidden",
               className
             )}
           />

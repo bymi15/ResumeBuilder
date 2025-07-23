@@ -4,11 +4,11 @@ import NotFound from "@/components/shared/not-found";
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useResumeByIdQuery } from "@/hooks/api/resumes/use-resume-by-id-query";
-import { humaniseDateToNow } from "@/lib/utils";
+import { usePrintableRef } from "@/hooks/shared/use-printable-ref";
+import { humaniseDateToNow, toLowerSnakeCase } from "@/lib/utils";
 import { ArrowLeftIcon, DownloadIcon, PencilIcon } from "lucide-react";
 import Link from "next/link";
 import { useParams } from "next/navigation";
-import { useRef } from "react";
 import { useReactToPrint } from "react-to-print";
 import TemplateRenderer from "../templates/template-renderer";
 
@@ -16,31 +16,12 @@ export default function ResumePreview() {
   const { id } = useParams<{ id: string }>();
   const { data: resume, isPending, isError } = useResumeByIdQuery(id);
 
-  const contentRef = useRef(null);
+  const { ref: contentRef, setRef, pageStyle } = usePrintableRef();
+
   const onPrint = useReactToPrint({
     contentRef,
-    documentTitle: "resume",
-    pageStyle: `
-      @page { margin: 0; size: A4; }
-      @media print {
-        html,
-        body {
-          margin: 0;
-          padding: 0;
-          -webkit-print-color-adjust: exact;
-          print-color-adjust: exact;
-        }
-      
-        * {
-          box-shadow: none !important;
-          overflow: visible !important;
-        }
-      
-        .page-break {
-          break-after: always;
-        }
-      }
-    `,
+    documentTitle: resume?.title ? toLowerSnakeCase(resume.title) : "resume",
+    pageStyle,
   });
 
   if (isPending) {
@@ -101,7 +82,7 @@ export default function ResumePreview() {
         </div>
       </div>
       <div className="bg-muted rounded-xl shadow-md overflow-hidden py-8 px-4 md:px-6">
-        <TemplateRenderer ref={contentRef} data={resume.data} />
+        <TemplateRenderer ref={setRef} data={resume.data} />
       </div>
     </div>
   );
