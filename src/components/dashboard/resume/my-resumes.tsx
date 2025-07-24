@@ -33,10 +33,10 @@ export default function MyResumes() {
         </div>
       ) : resumes && resumes.length > 0 ? (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          <EmptyCard />
           {resumes.map((resume) => (
             <ResumeCard key={resume.id} resume={resume} />
           ))}
+          <EmptyCard />
         </div>
       ) : (
         <div>
