@@ -1,7 +1,7 @@
 "use client";
 
 import { Badge } from "@/components/ui/badge";
-import { cn, formatDate, formatDateRange } from "@/lib/utils";
+import { cn, dateRangeToDuration, formatDate, formatDateRange } from "@/lib/utils";
 import { TemplateProps } from "@/types/template";
 import { Calendar, Landmark, MailIcon, MapPinIcon, UserRound } from "lucide-react";
 import { forwardRef } from "react";
@@ -178,7 +178,9 @@ const SidebarTemplate = forwardRef<HTMLDivElement, TemplateProps>(
                   <div className="flex gap-3 items-center">
                     <p className="flex items-center gap-1 text-xs text-(--main-text)">
                       <Calendar className="w-3 h-3" />
-                      <span>{formatDateRange(exp.dateRange)}</span>
+                      <span>
+                        {formatDateRange(exp.dateRange)} · {dateRangeToDuration(exp.dateRange)}
+                      </span>
                     </p>
                     {exp.location ? (
                       <p className="flex items-center gap-1 text-xs text-(--main-text)">

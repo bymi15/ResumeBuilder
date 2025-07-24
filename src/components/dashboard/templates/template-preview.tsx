@@ -25,8 +25,12 @@ export default function TemplatePreview({
   }
 
   return Template ? (
-    <div className="bg-white max-w-[794px] max-h-[1123px] p-0 m-0 overflow-hidden">
-      <Template data={mockResume} theme={getTemplateTheme(mockResume.templateTheme).theme} />
+    <div className="p-0 m-0">
+      <Template
+        className="mx-0 w-[794px] min-h-[1123px]"
+        data={mockResume}
+        theme={getTemplateTheme(mockResume.templateTheme).theme}
+      />
     </div>
   ) : (
     <div className="p-6 space-y-6">

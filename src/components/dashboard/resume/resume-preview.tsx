@@ -15,7 +15,6 @@ import TemplateRenderer from "../templates/template-renderer";
 export default function ResumePreview() {
   const { id } = useParams<{ id: string }>();
   const { data: resume, isPending, isError } = useResumeByIdQuery(id);
-
   const { ref: contentRef, setRef, pageStyle } = usePrintableRef();
 
   const onPrint = useReactToPrint({
@@ -70,11 +69,10 @@ export default function ResumePreview() {
             <Button variant="secondary" asChild>
               <span className="flex items-center gap-2">
                 <PencilIcon className="w-4 h-4" />
-                Edit Resume
+                Edit
               </span>
             </Button>
           </Link>
-
           <Button onClick={onPrint} className="gap-2 cursor-pointer">
             <DownloadIcon className="w-4 h-4" />
             Download / Print
