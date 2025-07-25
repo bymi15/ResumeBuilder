@@ -29,6 +29,7 @@ export function ResumeCard({ resume: { id, title, updated_at } }: ResumeCardProp
       toast.success("Resume deleted successfully");
     } catch (err) {
       toast.error("Failed to delete resume. Please try again.");
+      console.error(err);
     }
   };
 
