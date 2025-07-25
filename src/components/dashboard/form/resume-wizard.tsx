@@ -27,7 +27,7 @@ import {
   User,
 } from "lucide-react";
 import { useParams, useRouter } from "next/navigation";
-import { useCallback, useEffect, useState } from "react";
+import { MouseEvent, useCallback, useEffect, useState } from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import { toast } from "sonner";
 import { FormStepAchievements } from "./form-step-achievements";
@@ -177,7 +177,10 @@ export default function ResumeWizard() {
     }
   };
 
-  const nextStep = () => goToStep(Math.min(currentStep + 1, steps.length - 1));
+  const nextStep = (e: MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    goToStep(Math.min(currentStep + 1, steps.length - 1));
+  };
   const prevStep = () => goToStep(Math.max(currentStep - 1, 0));
   const goToStep = async (index: number) => {
     if (index === steps.length - 1) {

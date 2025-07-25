@@ -3,7 +3,7 @@
 import NotFound from "@/components/shared/not-found";
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
-import { useResumeByIdQuery } from "@/hooks/api/resumes/use-resume-by-id-query";
+import { useProcessedResumeByIdQuery } from "@/hooks/api/resumes/use-resume-by-id-query";
 import { usePrintableRef } from "@/hooks/shared/use-printable-ref";
 import { humaniseDateToNow, toLowerSnakeCase } from "@/lib/utils";
 import { ArrowLeftIcon, DownloadIcon, PencilIcon } from "lucide-react";
@@ -14,7 +14,7 @@ import TemplateRenderer from "../templates/template-renderer";
 
 export default function ResumePreview() {
   const { id } = useParams<{ id: string }>();
-  const { data: resume, isPending, isError } = useResumeByIdQuery(id);
+  const { data: resume, isPending, isError } = useProcessedResumeByIdQuery(id);
   const { ref: contentRef, setRef, pageStyle } = usePrintableRef();
 
   const onPrint = useReactToPrint({

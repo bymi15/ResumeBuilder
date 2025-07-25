@@ -1,5 +1,5 @@
-import { ResumeSchema } from "@/lib/schemas/resume-schema";
 import { ForwardRefExoticComponent, RefAttributes } from "react";
+import { ProcessedResume } from "./resume";
 
 export interface TemplateRegistryEntryWithComponent extends TemplateRegistryEntry {
   component: ForwardRefExoticComponent<TemplateProps & RefAttributes<HTMLDivElement>>;
@@ -13,7 +13,7 @@ export interface TemplateRegistryEntry {
 
 export interface TemplateProps {
   className?: string;
-  data: ResumeSchema;
+  data: ProcessedResume;
   theme: TemplateTheme["theme"];
 }
 

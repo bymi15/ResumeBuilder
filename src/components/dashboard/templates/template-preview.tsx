@@ -2,6 +2,7 @@
 
 import NotFound from "@/components/shared/not-found";
 import { Button } from "@/components/ui/button";
+import { processResume } from "@/lib/utils";
 import { TemplateProps } from "@/types/template";
 import { ArrowLeftIcon, FilePlus } from "lucide-react";
 import Link from "next/link";
@@ -28,7 +29,7 @@ export default function TemplatePreview({
     <div className="p-0 m-0">
       <Template
         className="mx-0 w-[794px] min-h-[1123px]"
-        data={mockResume}
+        data={processResume(mockResume)}
         theme={getTemplateTheme(mockResume.templateTheme).theme}
       />
     </div>
@@ -60,7 +61,7 @@ export default function TemplatePreview({
         </div>
       </div>
       <div className="bg-muted rounded-xl shadow-md overflow-hidden py-8 px-4 sm:px-6">
-        <TemplateRenderer data={{ ...mockResume, template: template.id }} />
+        <TemplateRenderer data={{ ...processResume(mockResume), template: template.id }} />
       </div>
     </div>
   );

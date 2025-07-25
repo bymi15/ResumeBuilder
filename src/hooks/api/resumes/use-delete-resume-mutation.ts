@@ -7,6 +7,7 @@ export function useDeleteResumeMutation() {
     mutationFn: async (id: string) => await resumeService.deleteResume(id),
     onSuccess: (_, id) => {
       queryClient.invalidateQueries({ queryKey: ["resume", id] });
+      queryClient.invalidateQueries({ queryKey: ["processedResume", id] });
       queryClient.invalidateQueries({ queryKey: ["resumes"] });
     },
   });

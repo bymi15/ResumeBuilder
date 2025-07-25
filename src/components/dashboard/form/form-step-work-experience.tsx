@@ -4,6 +4,7 @@ import { Input } from "@/components/ui/input";
 import { ResumeSchema } from "@/lib/schemas/resume-schema";
 import { useFieldArray, useFormContext } from "react-hook-form";
 import ErrorLabel from "./error-label";
+import FormDateRangePicker from "./form-date-range-picker";
 
 export function FormStepWorkExperience() {
   const {
@@ -35,14 +36,18 @@ export function FormStepWorkExperience() {
             />
             <Input {...register(`workExperience.${index}.title`)} placeholder="Title/Position" />
             <ErrorLabel error={errors.workExperience?.[index]?.title} />
-            <Input
-              {...register(`workExperience.${index}.dateRange.from`)}
-              placeholder="From (YYYY-MM)"
+            <FormDateRangePicker
+              name={`workExperience.${index}.dateRange.from`}
+              control={control}
+              setValue={setValue}
+              type="from"
             />
             <ErrorLabel error={errors.workExperience?.[index]?.dateRange?.from} />
-            <Input
-              {...register(`workExperience.${index}.dateRange.to`)}
-              placeholder="To (YYYY-MM)"
+            <FormDateRangePicker
+              name={`workExperience.${index}.dateRange.to`}
+              control={control}
+              setValue={setValue}
+              type="to"
             />
 
             <p className="font-semibold mt-2">Description:</p>

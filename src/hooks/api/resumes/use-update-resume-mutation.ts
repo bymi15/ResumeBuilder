@@ -8,6 +8,7 @@ export function useUpdateResumeMutation() {
     mutationFn: async (data: UpdateResumePayload) => await resumeService.updateResume(data),
     onSuccess: (_, data) => {
       queryClient.invalidateQueries({ queryKey: ["resume", data.id] });
+      queryClient.invalidateQueries({ queryKey: ["processedResume", data.id] });
       queryClient.invalidateQueries({ queryKey: ["resumes"] });
     },
   });

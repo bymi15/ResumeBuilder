@@ -4,11 +4,13 @@ import { Input } from "@/components/ui/input";
 import { ResumeSchema } from "@/lib/schemas/resume-schema";
 import { useFieldArray, useFormContext } from "react-hook-form";
 import ErrorLabel from "./error-label";
+import FormDateRangePicker from "./form-date-range-picker";
 
 export function FormStepEducation() {
   const {
     register,
     control,
+    setValue,
     formState: { errors },
   } = useFormContext<ResumeSchema>();
 
@@ -31,13 +33,19 @@ export function FormStepEducation() {
             <ErrorLabel error={errors.education?.[index]?.institute} />
             <Input {...register(`education.${index}.course`)} placeholder="Course/Degree" />
             <ErrorLabel error={errors.education?.[index]?.course} />
-            <Input
-              {...register(`education.${index}.dateRange.from`)}
-              placeholder="From (e.g. 2019)"
+            <FormDateRangePicker
+              name={`education.${index}.dateRange.from`}
+              control={control}
+              setValue={setValue}
+              type="from"
             />
             <ErrorLabel error={errors.education?.[index]?.dateRange?.from} />
-            <Input {...register(`education.${index}.dateRange.to`)} placeholder="To (e.g. 2023)" />
-            <ErrorLabel error={errors.education?.[index]?.dateRange?.to} />
+            <FormDateRangePicker
+              name={`education.${index}.dateRange.to`}
+              control={control}
+              setValue={setValue}
+              type="to"
+            />
             <Input
               {...register(`education.${index}.description`)}
               placeholder="Description (optional)"

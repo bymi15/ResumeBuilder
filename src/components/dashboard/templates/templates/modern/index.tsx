@@ -70,31 +70,37 @@ const ModernTemplate = forwardRef<HTMLDivElement, TemplateProps>(
                   Work Experience
                 </h2>
                 <div className="space-y-2">
-                  {data.workExperience.map((exp, i) => (
+                  {data.workExperience.map((company, i) => (
                     <div key={i}>
-                      <h3 className="font-bold tracking-wide text-[var(--secondary)]">
-                        {exp.title}
+                      <h3 className="font-bold tracking-wide text-[var(--secondary)] text-lg">
+                        {company.company}
                       </h3>
-                      <h5 className="font-semibold tracking-wide uppercase text-[var(--secondary)]">
-                        {exp.company}
-                      </h5>
-                      <div className="flex gap-3 items-center">
-                        <p className="flex items-center gap-1 text-xs text-[var(--secondary)]">
-                          <Calendar className="w-3 h-3" />
-                          <span>{formatDateRange(exp.dateRange)}</span>
-                        </p>
-                        {exp.location ? (
-                          <p className="flex items-center gap-1 text-xs text-[var(--secondary)]">
-                            <MapPinIcon className="h-3 w-3" />
-                            <span>{exp.location}</span>
-                          </p>
-                        ) : null}
-                      </div>
-                      <ul className="list-disc pl-5 mt-1">
-                        {exp.description.map((desc, j) => (
-                          <li key={j}>{desc}</li>
-                        ))}
-                      </ul>
+                      {company.roles.map((role, j) => (
+                        <div key={j} className="mt-1">
+                          <h5 className="font-semibold tracking-wide uppercase text-[var(--secondary)]">
+                            {role.title}
+                          </h5>
+                          <div className="flex gap-3 items-center">
+                            <p className="flex items-center gap-1 text-xs text-[var(--secondary)]">
+                              <Calendar className="w-3 h-3" />
+                              <span>{formatDateRange(role.dateRange)}</span>
+                            </p>
+                            {role.location ? (
+                              <p className="flex items-center gap-1 text-xs text-[var(--secondary)]">
+                                <MapPinIcon className="h-3 w-3" />
+                                <span>{role.location}</span>
+                              </p>
+                            ) : null}
+                          </div>
+                          {role.description?.length ? (
+                            <ul className="list-disc pl-5 mt-1">
+                              {role.description.map((desc, k) => (
+                                <li key={k}>{desc}</li>
+                              ))}
+                            </ul>
+                          ) : null}
+                        </div>
+                      ))}
                     </div>
                   ))}
                 </div>

@@ -2,13 +2,13 @@
 
 import { Skeleton } from "@/components/ui/skeleton";
 import { useTemplateByID } from "@/hooks/shared/use-template-by-id";
-import { ResumeSchema } from "@/lib/schemas/resume-schema";
 import { cn } from "@/lib/utils";
+import { ProcessedResume } from "@/types/resume";
 import { forwardRef } from "react";
 import { getTemplateTheme } from "./themes";
 
 interface TemplateRendererProps {
-  data: ResumeSchema;
+  data: ProcessedResume;
   className?: string;
 }
 

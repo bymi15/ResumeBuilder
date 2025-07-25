@@ -4,6 +4,7 @@ import { Input } from "@/components/ui/input";
 import { ResumeSchema } from "@/lib/schemas/resume-schema";
 import { FieldError, useFieldArray, useFormContext } from "react-hook-form";
 import ErrorLabel from "./error-label";
+import FormDateRangePicker from "./form-date-range-picker";
 
 export function FormStepProjects() {
   const {
@@ -35,9 +36,19 @@ export function FormStepProjects() {
             <ErrorLabel error={errors.projects?.[index]?.type as FieldError | undefined} />
             <Input {...register(`projects.${index}.title`)} placeholder="Project Title" />
             <ErrorLabel error={errors.projects?.[index]?.title} />
-            <Input {...register(`projects.${index}.dateRange.from`)} placeholder="From (YYYY-MM)" />
+            <FormDateRangePicker
+              name={`projects.${index}.dateRange.from`}
+              control={control}
+              setValue={setValue}
+              type="from"
+            />
             <ErrorLabel error={errors.projects?.[index]?.dateRange?.from} />
-            <Input {...register(`projects.${index}.dateRange.to`)} placeholder="To (YYYY-MM)" />
+            <FormDateRangePicker
+              name={`projects.${index}.dateRange.to`}
+              control={control}
+              setValue={setValue}
+              type="to"
+            />
 
             <p className="font-semibold mt-2">Description:</p>
             {(field.description ?? []).map((_, dIndex) => (

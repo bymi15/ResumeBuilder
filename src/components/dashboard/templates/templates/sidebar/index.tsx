@@ -139,7 +139,7 @@ const SidebarTemplate = forwardRef<HTMLDivElement, TemplateProps>(
         </aside>
 
         {/* Main Content */}
-        <main className="col-span-2 p-8 space-y-5 text-sm" style={{ color: "var(--main-text)" }}>
+        <main className="col-span-2 p-8 space-y-5 text-sm text-(--main-text)">
           {/* Basic Details */}
           <div className="flex justify-between">
             <div>
@@ -166,34 +166,44 @@ const SidebarTemplate = forwardRef<HTMLDivElement, TemplateProps>(
           {/* Experience */}
           {data.workExperience?.length ? (
             <section>
-              <h2 className="text-base uppercase font-semibold text-(--primary) border-b-2 border-[var(--primary)]">
+              <h2 className="text-base uppercase font-semibold text-(--primary) border-b-2 border-(--primary)">
                 Work Experience
               </h2>
-              {data.workExperience.map((exp, i) => (
-                <div key={i} className="mb-2">
-                  <h3 className="font-extrabold text-(--primary) tracking-wide">{exp.title}</h3>
+              {data.workExperience.map((companyExp, i) => (
+                <div key={i} className="mt-3">
+                  {/* Company Name */}
                   <h5 className="font-semibold text-(--secondary) tracking-wide uppercase">
-                    {exp.company}
+                    {companyExp.company}
                   </h5>
-                  <div className="flex gap-3 items-center">
-                    <p className="flex items-center gap-1 text-xs text-(--main-text)">
-                      <Calendar className="w-3 h-3" />
-                      <span>
-                        {formatDateRange(exp.dateRange)} · {dateRangeToDuration(exp.dateRange)}
-                      </span>
-                    </p>
-                    {exp.location ? (
-                      <p className="flex items-center gap-1 text-xs text-(--main-text)">
-                        <MapPinIcon className="h-3 w-3" />
-                        <span>{exp.location}</span>
-                      </p>
-                    ) : null}
-                  </div>
-                  <ul className="list-disc pl-6 mt-1">
-                    {exp.description?.map((d, j) => (
-                      <li key={j}>{d}</li>
-                    ))}
-                  </ul>
+
+                  {/* Roles within this company */}
+                  {companyExp.roles.map((role, j) => (
+                    <div key={j} className="ml-2 my-2 border-l-2 pl-3 border-(--primary)">
+                      <h3 className="font-extrabold text-(--primary)">{role.title}</h3>
+                      <div className="flex gap-3 items-center">
+                        <p className="flex items-center gap-1 text-xs text-(--main-text)">
+                          <Calendar className="w-3 h-3" />
+                          <span>
+                            {formatDateRange(role.dateRange)} ·{" "}
+                            {dateRangeToDuration(role.dateRange)}
+                          </span>
+                        </p>
+                        {role.location && (
+                          <p className="flex items-center gap-1 text-xs text-(--main-text)">
+                            <MapPinIcon className="h-3 w-3" />
+                            <span>{role.location}</span>
+                          </p>
+                        )}
+                      </div>
+                      {role.description?.length > 0 && (
+                        <ul className="list-disc pl-5 mt-1 space-y-1">
+                          {role.description.map((d, k) => (
+                            <li key={k}>{d}</li>
+                          ))}
+                        </ul>
+                      )}
+                    </div>
+                  ))}
                 </div>
               ))}
             </section>
@@ -202,15 +212,15 @@ const SidebarTemplate = forwardRef<HTMLDivElement, TemplateProps>(
           {/* Education */}
           {data.education?.length ? (
             <section>
-              <h2 className="text-base uppercase font-semibold text-(--primary) border-b-2 border-[var(--primary)]">
+              <h2 className="text-base uppercase font-semibold text-(--primary) border-b-2 border-(--primary)">
                 Education
               </h2>
               {data.education.map((edu, i) => (
-                <div key={i} className="mb-2">
-                  <h3 className="font-extrabold text-(--primary)">{edu.course}</h3>
+                <div key={i} className="my-1">
                   <h5 className="font-semibold text-(--secondary) tracking-wide uppercase">
                     {edu.institute}
                   </h5>
+                  <h3 className="font-extrabold text-(--primary)">{edu.course}</h3>
                   <p className="flex items-center gap-1 text-xs text-(--main-text)">
                     <Calendar className="w-3 h-3" />
                     <span>{formatDateRange(edu.dateRange)}</span>
@@ -224,12 +234,12 @@ const SidebarTemplate = forwardRef<HTMLDivElement, TemplateProps>(
           {/* Projects */}
           {data.projects?.length ? (
             <section>
-              <h2 className="text-base uppercase font-semibold text-(--primary) border-b-2 border-[var(--primary)]">
+              <h2 className="text-base uppercase font-semibold text-(--primary) border-b-2 border-(--primary)">
                 Projects
               </h2>
               {data.projects.map((proj, i) => (
-                <div key={i} className="mb-2">
-                  <h3 className="font-extrabold text-(--primary)">{proj.title}</h3>
+                <div key={i} className="my-1">
+                  <h5 className="font-semibold text-(--secondary)">{proj.title}</h5>
 
                   <div className="flex gap-3 items-center">
                     <p className="flex items-center gap-1 text-xs text-(--main-text)">

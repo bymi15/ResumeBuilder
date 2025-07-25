@@ -60,27 +60,38 @@ const CompactTemplate = forwardRef<HTMLDivElement, TemplateProps>(
             {data.workExperience?.length ? (
               <section>
                 <h2 className="font-bold uppercase text-[var(--primary)] mb-1">Experience</h2>
-                {data.workExperience.map((exp, i) => (
-                  <div key={i} className="mb-2">
-                    <h3 className="font-semibold text-[var(--secondary)]">{exp.title}</h3>
-                    <p className="text-[var(--secondary)] uppercase">{exp.company}</p>
-                    <div className="flex flex-wrap gap-x-3 text-[10px] text-gray-600">
-                      <span className="flex items-center gap-1">
-                        <Calendar className="w-3 h-3" />
-                        {formatDateRange(exp.dateRange)}
-                      </span>
-                      {exp.location && (
-                        <span className="flex items-center gap-1">
-                          <MapPinIcon className="w-3 h-3" />
-                          {exp.location}
-                        </span>
-                      )}
-                    </div>
-                    <ul className="list-disc pl-4 mt-1 text-xs space-y-0.5">
-                      {exp.description.map((desc, j) => (
-                        <li key={j}>{desc}</li>
-                      ))}
-                    </ul>
+                {data.workExperience.map((company, i) => (
+                  <div key={i} className="mb-3">
+                    {/* Company Header */}
+                    <h3 className="text-[var(--secondary)] font-bold text-sm">{company.company}</h3>
+
+                    {/* Roles within the company */}
+                    {company.roles?.map((role, j) => (
+                      <div key={j} className="mb-2 pl-3 border-l border-(--secondary)">
+                        <p className="font-semibold text-[var(--secondary)]">{role.title}</p>
+                        <div className="flex flex-wrap gap-x-3 text-[10px] text-(--main-text) mt-0.5">
+                          {role.dateRange && (
+                            <span className="flex items-center gap-1">
+                              <Calendar className="w-3 h-3" />
+                              {formatDateRange(role.dateRange)}
+                            </span>
+                          )}
+                          {role.location && (
+                            <span className="flex items-center gap-1">
+                              <MapPinIcon className="w-3 h-3" />
+                              {role.location}
+                            </span>
+                          )}
+                        </div>
+                        {role.description?.length ? (
+                          <ul className="list-disc pl-5 mt-1 text-xs space-y-0.5">
+                            {role.description.map((desc, k) => (
+                              <li key={k}>{desc}</li>
+                            ))}
+                          </ul>
+                        ) : null}
+                      </div>
+                    ))}
                   </div>
                 ))}
               </section>
@@ -94,7 +105,7 @@ const CompactTemplate = forwardRef<HTMLDivElement, TemplateProps>(
                   <div key={i} className="mb-2">
                     <p className="font-semibold text-[var(--secondary)]">{edu.course}</p>
                     <p className="uppercase text-[var(--secondary)]">{edu.institute}</p>
-                    <p className="flex items-center gap-1 text-[10px] text-gray-600">
+                    <p className="flex items-center gap-1 text-[10px] text-(--main-text)">
                       <Calendar className="w-3 h-3" />
                       {formatDateRange(edu.dateRange)}
                     </p>
@@ -111,7 +122,7 @@ const CompactTemplate = forwardRef<HTMLDivElement, TemplateProps>(
                 {data.projects.map((proj, i) => (
                   <div key={i} className="mb-2">
                     <p className="font-semibold text-[var(--secondary)]">{proj.title}</p>
-                    <div className="flex gap-x-3 text-[10px] text-gray-600">
+                    <div className="flex gap-x-3 text-[10px] text-(--main-text)">
                       <span className="flex items-center gap-1">
                         <Calendar className="w-3 h-3" />
                         {formatDateRange(proj.dateRange)}
@@ -158,7 +169,7 @@ const CompactTemplate = forwardRef<HTMLDivElement, TemplateProps>(
                 {data.achievements.map((ach, i) => (
                   <div key={i} className="mb-1">
                     <p className="font-semibold text-[var(--secondary)]">{ach.title}</p>
-                    <div className="flex flex-wrap gap-x-3 text-[10px] text-gray-600">
+                    <div className="flex flex-wrap gap-x-3 text-[10px] text-(--main-text)">
                       {ach.date && (
                         <span className="flex items-center gap-1">
                           <Calendar className="w-3 h-3" />
@@ -185,7 +196,7 @@ const CompactTemplate = forwardRef<HTMLDivElement, TemplateProps>(
                 {data.activities.map((act, i) => (
                   <div key={i} className="mb-1">
                     <p className="font-semibold text-[var(--secondary)]">{act.title}</p>
-                    <div className="flex flex-wrap gap-x-3 text-[10px] text-gray-600">
+                    <div className="flex flex-wrap gap-x-3 text-[10px] text-(--main-text)">
                       {act.dateRange && (
                         <span className="flex items-center gap-1">
                           <Calendar className="w-3 h-3" />

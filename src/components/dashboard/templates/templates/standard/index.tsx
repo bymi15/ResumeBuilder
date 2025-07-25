@@ -61,6 +61,29 @@ const StandardTemplate = forwardRef<HTMLDivElement, TemplateProps>(
               <div className="space-y-2">
                 {data.workExperience.map((exp, i) => (
                   <div key={i}>
+                    <div className="font-extrabold text-[var(--secondary)] text-base">
+                      {exp.company}
+                    </div>
+                    {exp.roles.map((role, j) => (
+                      <div key={j} className="mt-1">
+                        <div className="text-sm font-bold text-[var(--primary)]">{role.title}</div>
+                        <div className="text-xs text-[var(--main-text)]">
+                          {formatDateRange(role.dateRange)}
+                          {role.location ? ` | ${role.location}` : ""}
+                        </div>
+                        {role.description?.length ? (
+                          <ul className="list-disc pl-5 mt-1">
+                            {role.description.map((desc, k) => (
+                              <li key={k}>{desc}</li>
+                            ))}
+                          </ul>
+                        ) : null}
+                      </div>
+                    ))}
+                  </div>
+                ))}
+                {/* {data.workExperience.map((exp, i) => (
+                  <div key={i}>
                     <div className="font-extrabold text-[var(--secondary)]">{exp.title}</div>
                     <div className="text-sm text-[var(--main-text)]">
                       <span className="font-semibold">{exp.company}</span> |{" "}
@@ -73,7 +96,7 @@ const StandardTemplate = forwardRef<HTMLDivElement, TemplateProps>(
                       ))}
                     </ul>
                   </div>
-                ))}
+                ))} */}
               </div>
             </section>
           ) : null}

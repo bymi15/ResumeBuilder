@@ -2,6 +2,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { ResumeSchema } from "@/lib/schemas/resume-schema";
+import { processResume } from "@/lib/utils";
 import { useState } from "react";
 import { FieldError, FieldErrors, useFormContext } from "react-hook-form";
 import TemplateRenderer from "../templates/template-renderer";
@@ -134,7 +135,10 @@ export function FormStepReview({
           )}
           {resumeData.template && Object.keys(errors).length === 0 && (
             <div className="relative overflow-hidden bg-white h-[600px]">
-              <TemplateRenderer className="scale-[0.5] origin-top text-left" data={resumeData} />
+              <TemplateRenderer
+                className="scale-[0.5] origin-top text-left"
+                data={processResume(resumeData)}
+              />
             </div>
           )}
         </div>
