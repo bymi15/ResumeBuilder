@@ -3,11 +3,18 @@
 import { Card, CardContent } from "@/components/ui/card";
 import { ResumeSchema } from "@/lib/schemas/resume-schema";
 import { Controller, useFormContext } from "react-hook-form";
+import { resumeTemplates } from "../templates/templates";
+import { getTemplateTheme } from "../templates/themes";
 import TemplateLayoutSelector from "./template-layout-selector";
 import TemplateThemeSelector from "./template-theme-selector";
 
 export default function FormStepTemplate() {
-  const { control, setValue } = useFormContext<ResumeSchema>();
+  const { control, setValue, watch } = useFormContext<ResumeSchema>();
+  const watchedTemplate = watch("template");
+  const availableThemes =
+    resumeTemplates
+      .find((x) => x.id === watchedTemplate)
+      ?.availableThemes?.map((themeID) => getTemplateTheme(themeID)) || [];
   return (
     <Card>
       <CardContent className="space-y-4">
@@ -26,21 +33,24 @@ export default function FormStepTemplate() {
             )}
           />
         </div>
-        <div className="space-y-4">
-          <h2 className="text-xl font-semibold">Template Theme</h2>
-          <Controller
-            name="templateTheme"
-            control={control}
-            render={({ field }) => (
-              <TemplateThemeSelector
-                onSelect={(templateTheme) => {
-                  setValue("templateTheme", templateTheme.id);
-                }}
-                selected={field.value}
-              />
-            )}
-          />
-        </div>
+        {availableThemes.length > 0 ? (
+          <div className="space-y-4">
+            <h2 className="text-xl font-semibold">Template Theme</h2>
+            <Controller
+              name="templateTheme"
+              control={control}
+              render={({ field }) => (
+                <TemplateThemeSelector
+                  templateThemes={availableThemes}
+                  onSelect={(templateTheme) => {
+                    setValue("templateTheme", templateTheme.id);
+                  }}
+                  selected={field.value}
+                />
+              )}
+            />
+          </div>
+        ) : null}
       </CardContent>
     </Card>
   );

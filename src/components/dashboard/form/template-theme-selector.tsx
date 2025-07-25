@@ -3,12 +3,13 @@
 import { cn } from "@/lib/utils";
 import { TemplateTheme } from "@/types/template";
 import { Check } from "lucide-react";
-import { templateThemes } from "../templates/themes";
 
 export default function TemplateThemeSelector({
+  templateThemes,
   onSelect,
   selected,
 }: {
+  templateThemes: TemplateTheme[];
   onSelect: (templateTheme: TemplateTheme) => void;
   selected?: string;
 }) {

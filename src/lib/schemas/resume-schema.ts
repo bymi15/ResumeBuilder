@@ -7,7 +7,7 @@ const dateRangeSchema = z.object({
 
 export const resumeSchema = z.object({
   template: z.string().min(1, "Template is required"),
-  templateTheme: z.string().min(1, "Template theme is required"),
+  templateTheme: z.string().optional(),
   fullName: z.string().min(1, "Full name is required"),
   profilePhoto: z.string().optional(),
   location: z

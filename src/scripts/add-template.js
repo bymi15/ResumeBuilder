@@ -28,10 +28,33 @@ async function main() {
   await fs.mkdirp(templatePath);
 
   // Create basic index.tsx
-  const indexContent = `const ${capitalise(id)}Template = () => {
-    return <div>${name} Template</div>;
+  const indexContent = `
+  "use client";
+
+  import { cn } from "@/lib/utils";
+  import { TemplateProps } from "@/types/template";
+  import { forwardRef } from "react";
+
+  const ${capitalise(
+    id
+  )}Template = forwardRef<HTMLDivElement, TemplateProps>(({ className, data }, ref) => {
+    return (
+      <div
+        ref={ref}
+        className={cn(
+          "mx-auto bg-white px-10 py-8 font-serif text-[13px] leading-[1.7] tracking-wide",
+          className
+        )}
+      >
+        <p>${name} Template</p>
+        <h1>
+          {data.fullName || "Your Name"}
+        </h1>
+      </div>
+    );
   };
 
+  ${capitalise(id)}Template.displayName = "${capitalise(id)}Template";
   export default ${capitalise(id)}Template;
   `;
 
@@ -49,7 +72,9 @@ async function main() {
 
   console.log(`✅ Template '${name}' created in ${templatePath}`);
   console.log(`📎 Added to registry.json`);
-  console.log(`🖼️  Don't forget to add thumbnail at /public/images/templates/${id}.jpg`);
+  console.log(
+    `🖼️  Don't forget to run: 'npm run generate:thumbnail' to re-generate thumbnails at /public/images/templates/`
+  );
 
   rl.close();
 }

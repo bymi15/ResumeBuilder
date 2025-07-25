@@ -9,6 +9,7 @@ export interface TemplateRegistryEntry {
   id: string;
   name: string;
   thumbnail: string;
+  availableThemes: TemplateTheme["id"][];
 }
 
 export interface TemplateProps {

@@ -1,5 +1,6 @@
 "use client";
 
+import Error from "@/components/shared/error";
 import { Button } from "@/components/ui/button";
 import {
   Select,
@@ -54,9 +55,11 @@ const sectionFields: Record<string, (keyof ResumeSchema)[]> = {
   Review: [],
 };
 
-export default function ResumeWizard() {
+export default function ResumeWizard({ mode = "create" }: { mode?: "create" | "edit" | "clone" }) {
   const { id } = useParams<{ id?: string }>();
-  const isEditMode = !!id;
+
+  const isEditMode = !!id && mode === "edit";
+  const isCloneMode = !!id && mode === "clone";
 
   const router = useRouter();
   const [currentStep, setCurrentStep] = useState(0);
@@ -67,10 +70,6 @@ export default function ResumeWizard() {
   const { mutateAsync: updateResume } = useUpdateResumeMutation();
   const methods = useForm<ResumeSchema>({
     resolver: zodResolver(resumeSchema),
-    defaultValues: {
-      template: "1",
-      templateTheme: "1",
-    },
     mode: "onChange",
   });
   const {
@@ -141,11 +140,11 @@ export default function ResumeWizard() {
   ];
 
   useEffect(() => {
-    if (isEditMode && resumeData) {
+    if ((isEditMode || isCloneMode) && resumeData) {
       reset(resumeData.data);
-      setResumeTitle(resumeData.title);
+      setResumeTitle(isCloneMode ? `Clone: ${resumeData.title}` : resumeData.title);
     }
-  }, [resumeData, isEditMode, reset]);
+  }, [resumeData, isEditMode, isCloneMode, reset]);
 
   const onSubmit = async (formData: ResumeSchema) => {
     if (!isValid || !resumeTitle.trim()) return;
@@ -192,7 +191,11 @@ export default function ResumeWizard() {
     setCurrentStep(index);
   };
 
-  if (isEditMode && isLoadingResume) {
+  if ((mode === "clone" || mode === "edit") && !id) {
+    return <Error message="Resume ID is required for editing or cloning." />;
+  }
+
+  if ((isEditMode || isCloneMode) && isLoadingResume) {
     return (
       <main className="flex" style={{ height: "calc(100vh - var(--header-height))" }}>
         <aside className="w-64 bg-gray-100 border-r p-4">

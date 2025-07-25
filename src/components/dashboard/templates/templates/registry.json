@@ -2,21 +2,40 @@
   {
     "id": "standard",
     "name": "Standard",
-    "thumbnail": "/images/templates/standard.jpg"
+    "thumbnail": "/images/templates/standard.jpg",
+    "availableThemes": []
   },
   {
     "id": "sidebar",
     "name": "Sidebar",
-    "thumbnail": "/images/templates/sidebar.jpg"
+    "thumbnail": "/images/templates/sidebar.jpg",
+    "availableThemes": [
+      "elegant-black",
+      "classic-blue",
+      "modern-sky",
+      "forest-green",
+      "sunset",
+      "charcoal",
+      "lavender",
+      "ocean",
+      "rose-gold"
+    ]
   },
   {
     "id": "modern",
     "name": "Modern",
-    "thumbnail": "/images/templates/modern.jpg"
+    "thumbnail": "/images/templates/modern.jpg",
+    "availableThemes": []
   },
   {
     "id": "compact",
     "name": "Compact",
-    "thumbnail": "/images/templates/compact.jpg"
+    "thumbnail": "/images/templates/compact.jpg",
+    "availableThemes": []
+  },
+  {
+    "id": "elegant",
+    "name": "Elegant",
+    "thumbnail": "/images/templates/elegant.jpg"
   }
 ]

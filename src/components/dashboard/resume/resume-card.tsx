@@ -10,7 +10,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { useDeleteResumeMutation } from "@/hooks/api/resumes/use-delete-resume-mutation";
 import { ResumeRecord } from "@/lib/supabase/resumes/types";
-import { MoreVertical, PencilIcon, TrashIcon } from "lucide-react";
+import { CopyIcon, MoreVertical, PencilIcon, TrashIcon } from "lucide-react";
 import Link from "next/link";
 import { toast } from "sonner";
 
@@ -51,6 +51,11 @@ export function ResumeCard({ resume: { id, title, updated_at } }: ResumeCardProp
                 </Button>
               </DropdownMenuTrigger>
               <DropdownMenuContent align="end">
+                <Link href={`/dashboard/resume/${id}/clone`} passHref>
+                  <DropdownMenuItem>
+                    <CopyIcon className="mr-2 h-4 w-4" /> Clone Resume
+                  </DropdownMenuItem>
+                </Link>
                 <Link href={`/dashboard/resume/${id}/edit`} passHref>
                   <DropdownMenuItem>
                     <PencilIcon className="mr-2 h-4 w-4" /> Edit Resume
