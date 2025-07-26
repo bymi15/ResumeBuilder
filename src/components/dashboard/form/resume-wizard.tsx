@@ -18,7 +18,6 @@ import {
   AlertCircle,
   BookOpen,
   Briefcase,
-  CheckCircle,
   FolderKanban,
   GraduationCap,
   LayoutPanelTop,
@@ -131,11 +130,6 @@ export default function ResumeWizard({ mode = "create" }: { mode?: "create" | "e
       label: "Links",
       icon: Link,
       component: <FormStepLinks />,
-    },
-    {
-      label: "Review",
-      icon: CheckCircle,
-      component: <FormStepReview resumeTitle={resumeTitle} setResumeTitle={setResumeTitle} />,
     },
   ];
 
@@ -274,12 +268,12 @@ export default function ResumeWizard({ mode = "create" }: { mode?: "create" | "e
         </nav>
       </aside>
 
-      {/* Form Section */}
-      <section className="flex-1 p-8 overflow-y-auto">
-        <FormProvider {...methods}>
-          <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
+      <FormProvider {...methods}>
+        <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col lg:flex-row w-full">
+          {/* Left Half: Form Section */}
+          <section className="flex-1 lg:w-1/2 p-6 overflow-y-auto space-y-6">
             {steps[currentStep].component}
-            <div className="mt-6 flex justify-between">
+            <div className="mt-[-12px] flex justify-between">
               <Button type="button" disabled={currentStep <= 0} onClick={prevStep}>
                 Back
               </Button>
@@ -287,15 +281,20 @@ export default function ResumeWizard({ mode = "create" }: { mode?: "create" | "e
                 <Button type="button" onClick={nextStep}>
                   Next
                 </Button>
-              ) : (
-                <Button type="submit" disabled={!isValid || !resumeTitle.trim()}>
-                  {isEditMode ? "Save" : "Create"} Resume
-                </Button>
-              )}
+              ) : null}
             </div>
-          </form>
-        </FormProvider>
-      </section>
+          </section>
+
+          {/* Right Half: Preview */}
+          <section className="flex-1 lg:w-1/2 p-6 bg-gray-50 overflow-y-auto border-l">
+            <FormStepReview
+              resumeTitle={resumeTitle}
+              setResumeTitle={setResumeTitle}
+              isEditMode={isEditMode}
+            />
+          </section>
+        </form>
+      </FormProvider>
     </main>
   );
 }

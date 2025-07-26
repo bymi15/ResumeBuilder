@@ -1,10 +1,14 @@
+import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { ResumeSchema } from "@/lib/schemas/resume-schema";
 import { processResume } from "@/lib/utils";
+import { ArrowLeftIcon } from "lucide-react";
+import Link from "next/link";
 import { useState } from "react";
 import { FieldError, FieldErrors, useFormContext } from "react-hook-form";
+import { isValid } from "zod";
 import TemplateRenderer from "../templates/template-renderer";
 
 type AnyFieldError = FieldError | FieldErrors | Record<string, unknown> | undefined;
@@ -89,9 +93,11 @@ export function extractErrors(
 export function FormStepReview({
   resumeTitle,
   setResumeTitle,
+  isEditMode,
 }: {
   resumeTitle: string;
   setResumeTitle: (title: string) => void;
+  isEditMode: boolean;
 }) {
   const {
     watch,
@@ -103,36 +109,24 @@ export function FormStepReview({
   const resumeData = watch(); // gets all values
 
   return (
-    <Card>
-      <CardContent className="space-y-4">
-        <div className="space-y-4">
-          <h2 className="text-2xl font-semibold">Review Your Resume</h2>
-          {Object.keys(errors).length > 0 ? (
-            <div className="text-red-600 text-sm text-left">
-              <p>Please fix the following errors before proceeding:</p>
-              <ul className="list-disc list-inside space-y-1 mt-2">
-                {extractErrors(errors).map((msg, index) => (
-                  <li key={index}>{msg}</li>
-                ))}
-              </ul>
+    <>
+      <Card className="mb-3">
+        <CardContent className="space-y-4">
+          <div>
+            <div className="space-y-2 text-left">
+              <Label htmlFor="resumeTitle">Resume Title</Label>
+              <Input
+                id="resumeTitle"
+                placeholder="e.g. Frontend Engineer Resume"
+                value={resumeTitle}
+                onChange={(e) => setResumeTitle(e.target.value)}
+                onBlur={() => setBlurred(true)}
+              />
+              {blurred && !resumeTitle.trim() ? (
+                <p className="ml-2 text-xs text-red-500">Resume title is required</p>
+              ) : null}
             </div>
-          ) : (
-            <div>
-              <div className="space-y-2 text-left">
-                <Label htmlFor="resumeTitle">Resume Title</Label>
-                <Input
-                  id="resumeTitle"
-                  placeholder="e.g. Frontend Engineer Resume"
-                  value={resumeTitle}
-                  onChange={(e) => setResumeTitle(e.target.value)}
-                  onBlur={() => setBlurred(true)}
-                />
-                {blurred && !resumeTitle.trim() ? (
-                  <p className="ml-2 text-xs text-red-500">Resume title is required</p>
-                ) : null}
-              </div>
-            </div>
-          )}
+          </div>
           {resumeData.template && Object.keys(errors).length === 0 && (
             <div className="relative overflow-hidden bg-white h-[600px]">
               <TemplateRenderer
@@ -141,8 +135,32 @@ export function FormStepReview({
               />
             </div>
           )}
+        </CardContent>
+      </Card>
+      {Object.keys(errors).length > 0 ? (
+        <div className="text-red-600 text-sm text-left">
+          <p>Please fix the following errors before proceeding:</p>
+          <ul className="list-disc list-inside space-y-1 mt-2">
+            {extractErrors(errors).map((msg, index) => (
+              <li key={index}>{msg}</li>
+            ))}
+          </ul>
         </div>
-      </CardContent>
-    </Card>
+      ) : (
+        <div className="flex justify-between">
+          <Link href="/dashboard" passHref>
+            <Button type="button" variant="secondary" asChild>
+              <span className="flex items-center gap-2">
+                <ArrowLeftIcon className="w-4 h-4" />
+                Back to Dashboard
+              </span>
+            </Button>
+          </Link>
+          <Button type="submit" disabled={!isValid || !resumeTitle.trim()}>
+            {isEditMode ? "Save" : "Create"} Resume
+          </Button>
+        </div>
+      )}
+    </>
   );
 }
