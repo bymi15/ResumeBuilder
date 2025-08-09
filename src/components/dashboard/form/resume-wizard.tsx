@@ -42,6 +42,7 @@ import FormStepTemplate from "./form-step-template";
 import { FormStepWorkExperience } from "./form-step-work-experience";
 
 const sectionFields: Record<string, (keyof ResumeSchema)[]> = {
+  Import: [],
   Template: ["template", "templateTheme"],
   "Personal Info": ["fullName", "email", "location", "currentRole", "profilePhoto"],
   Education: ["education"],
@@ -85,7 +86,33 @@ export default function ResumeWizard({ mode = "create" }: { mode?: "create" | "e
     [errors]
   );
 
+  const nextStep = (e?: MouseEvent<HTMLButtonElement>) => {
+    e?.preventDefault();
+    goToStep(Math.min(currentStep + 1, steps.length - 1));
+  };
+
+  const prevStep = () => goToStep(Math.max(currentStep - 1, 0));
+
+  const goToStep = async (index: number) => {
+    if (index === steps.length - 1) {
+      trigger();
+    } else {
+      const fieldsToValidate = sectionFields[steps[currentStep].label];
+      trigger(fieldsToValidate);
+    }
+    setCurrentStep(index);
+  };
+
   const steps = [
+    // ...(!isEditMode
+    //   ? [
+    //       {
+    //         label: "Import",
+    //         icon: ImportIcon,
+    //         component: <FormStepImport nextStep={nextStep} />,
+    //       },
+    //     ]
+    //   : []),
     {
       label: "Template",
       icon: LayoutPanelTop,
@@ -168,21 +195,6 @@ export default function ResumeWizard({ mode = "create" }: { mode?: "create" | "e
       console.error("Failed to create/update resume:", err);
       toast.error(`Failed to ${isEditMode ? "update" : "create"} resume. Please try again.`);
     }
-  };
-
-  const nextStep = (e: MouseEvent<HTMLButtonElement>) => {
-    e.preventDefault();
-    goToStep(Math.min(currentStep + 1, steps.length - 1));
-  };
-  const prevStep = () => goToStep(Math.max(currentStep - 1, 0));
-  const goToStep = async (index: number) => {
-    if (index === steps.length - 1) {
-      trigger();
-    } else {
-      const fieldsToValidate = sectionFields[steps[currentStep].label];
-      trigger(fieldsToValidate);
-    }
-    setCurrentStep(index);
   };
 
   if ((mode === "clone" || mode === "edit") && !id) {
@@ -286,7 +298,7 @@ export default function ResumeWizard({ mode = "create" }: { mode?: "create" | "e
           </section>
 
           {/* Right Half: Preview */}
-          <section className="flex-1 lg:w-1/2 p-6 bg-gray-50 overflow-y-auto border-l">
+          <section className="flex-1 lg:w-1/2 p-6 overflow-y-auto border-l">
             <FormStepReview
               resumeTitle={resumeTitle}
               setResumeTitle={setResumeTitle}

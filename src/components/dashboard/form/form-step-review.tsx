@@ -138,13 +138,23 @@ export function FormStepReview({
         </CardContent>
       </Card>
       {Object.keys(errors).length > 0 ? (
-        <div className="text-red-600 text-sm text-left">
-          <p>Please fix the following errors before proceeding:</p>
-          <ul className="list-disc list-inside space-y-1 mt-2">
-            {extractErrors(errors).map((msg, index) => (
-              <li key={index}>{msg}</li>
-            ))}
-          </ul>
+        <div className="flex flex-col gap-3">
+          <div className="text-red-600 text-sm text-left">
+            <p>Please fix the following errors before proceeding:</p>
+            <ul className="list-disc list-inside space-y-1 mt-2">
+              {extractErrors(errors).map((msg, index) => (
+                <li key={index}>{msg}</li>
+              ))}
+            </ul>
+          </div>
+          <Link href="/dashboard" passHref>
+            <Button type="button" variant="secondary" asChild>
+              <span className="flex items-center gap-2">
+                <ArrowLeftIcon className="w-4 h-4" />
+                Back to Dashboard
+              </span>
+            </Button>
+          </Link>
         </div>
       ) : (
         <div className="flex justify-between">
